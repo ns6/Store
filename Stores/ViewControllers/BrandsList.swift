@@ -26,6 +26,7 @@ class BrandsList: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    
     var store: Store!
     private var dataProvider: DataProvider<Brand>!
     private var dataProviderSizesTypes: DataProvider<SizesType>!
