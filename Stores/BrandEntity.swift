@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Brand: DocumentIdentifiable {
+struct BrandEntity: DocumentIdentifiable {
     
     let name: String
     let count: Int
@@ -18,7 +18,7 @@ struct Brand: DocumentIdentifiable {
     let indexRow: UInt
 }
 
-extension Brand: DocumentSerializableProtocol {
+extension BrandEntity: DocumentSerializableProtocol {
     init?(dictionary: [String : Any]) {
         guard let id = dictionary["id"] as? String,
               let indexRow = dictionary["indexRow"] as? UInt,

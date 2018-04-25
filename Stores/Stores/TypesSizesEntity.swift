@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct SizesType {
+struct TypesSizesEntity {
     
     let id: String
     let sizes: [String]
 }
 
 //to do reworke
-extension SizesType: DocumentSerializableProtocol {
+extension TypesSizesEntity: DocumentSerializableProtocol {
     init?(dictionary: [String : Any]) {
         let sizesDictionary: [String : Any] = dictionary.filter{$0.key != "indexRow" && $0.key != "id"}
         

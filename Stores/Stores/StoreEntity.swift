@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Store: DocumentIdentifiable {
+struct StoreEntity: DocumentIdentifiable {
 
     let name: String
     let count: Int
@@ -18,7 +18,7 @@ struct Store: DocumentIdentifiable {
     let indexRow: UInt
 }
 
-extension Store: DocumentSerializableProtocol {
+extension StoreEntity: DocumentSerializableProtocol {
     init?(dictionary: [String : Any]) {
         guard let id = dictionary["id"] as? String else { return nil }
         guard let indexRow = dictionary["indexRow"] as? UInt else { return nil }

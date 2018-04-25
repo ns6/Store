@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Product: DocumentIdentifiable {
+struct ProductEntity: DocumentIdentifiable {
     
 //    weak var brand: Brand? {
 //        didSet {
@@ -40,7 +40,7 @@ struct Product: DocumentIdentifiable {
     let indexRow: UInt
 }
 
-extension Product: DocumentSerializableProtocol {
+extension ProductEntity: DocumentSerializableProtocol {
     init?(dictionary: [String : Any]) {
         guard let id = dictionary["id"] as? String,
             let indexRow = dictionary["indexRow"] as? UInt,

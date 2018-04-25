@@ -26,8 +26,8 @@ struct Sold {
 extension Sold: DocumentSerializableProtocol {
     init(dictionary: [String : Any]) {
         guard let time = dictionary["time"] as? Date else { fatalError() }
-        guard    let size = dictionary["size"] as? String else { fatalError() }
-        guard    let price = dictionary["price"] as? Double else { fatalError() }
+        guard let size = dictionary["size"] as? String else { fatalError() }
+        guard let price = dictionary["price"] as? Double else { fatalError() }
         
         self.init(time: time, size: size, price: price)
     }
