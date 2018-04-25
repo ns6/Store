@@ -479,8 +479,8 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return _view.bounds;
 }
 
-- (void)pauseInteractiveTransition {
-    
+- (void)pauseInteractiveTransition { 
+    return;
 }
 
 
@@ -767,7 +767,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     // we could have simply not implemented this, but we choose to call super to make explicit that we
     // want the default behavior.
@@ -1631,15 +1631,15 @@ const int FrontViewPositionNone = 0xff;
     controllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     controllerView.frame = frame;
     
-    if ( [controllerView isKindOfClass:[UIScrollView class]] )
-    {
-        BOOL adjust = controller.automaticallyAdjustsScrollViewInsets;
-        
-        if ( adjust )
-        {
-            [(id)controllerView setContentInset:UIEdgeInsetsMake(statusBarAdjustment(_contentView), 0, 0, 0)];
-        }
-    }
+//    if ( [controllerView isKindOfClass:[UIScrollView class]] )
+//    {
+//        BOOL adjust = controller.automaticallyAdjustsScrollViewInsets;
+//
+//        if ( adjust )
+//        {
+//            [(id)controllerView setContentInset:UIEdgeInsetsMake(statusBarAdjustment(_contentView), 0, 0, 0)];
+//        }
+//    }
     
     [view addSubview:controllerView];
     

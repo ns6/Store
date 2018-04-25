@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class mainScreen: UIViewController {
+class NewsList: UIViewController, Storyboardable {
 
     @IBOutlet weak var label: UILabel!
     

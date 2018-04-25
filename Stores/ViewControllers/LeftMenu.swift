@@ -11,7 +11,7 @@ import Foundation
 import FirebaseFirestore
 import TableKit
 
-class LeftSideMenu: UITableViewController {
+class LeftMenu: UITableViewController, Storyboardable {
     
     @IBOutlet weak var tableVW: UITableView! {
         didSet {

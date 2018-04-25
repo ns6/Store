@@ -104,7 +104,7 @@
         <!--Item-->
         <scene sceneID="goJ-gO-i3O">
             <objects>
-                <viewController id="spz-aM-kH9" customClass="mainScreen" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsList" id="spz-aM-kH9" customClass="NewsList" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TqJ-Gz-PMG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1545,10 +1545,10 @@
             </objects>
             <point key="canvasLocation" x="2950" y="2402"/>
         </scene>
-        <!--Left Side Menu-->
+        <!--Left Menu-->
         <scene sceneID="shX-Kf-LxE">
             <objects>
-                <tableViewController id="7ag-eh-pCB" customClass="LeftSideMenu" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LeftMenu" id="7ag-eh-pCB" customClass="LeftMenu" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Vo2-EV-g3A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1644,6 +1644,6 @@
         <image name="square" width="1114" height="1114"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QTi-8H-E27"/>
+        <segue reference="rft-j8-2zL"/>
     </inferredMetricsTieBreakers>
 </document>

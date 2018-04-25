@@ -7,19 +7,17 @@
 //
 
 import UIKit
-import FirebaseCore
-import FirebaseFirestore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var dataProvider: DataProvider<Brand>!
+//    var dataProvider: DataProvider<Brand>!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        RootController.configure(appDelegate: self)
         
-        
-        FirebaseApp.configure()
  
 //        dataProvider = DataProviderFactory<Brand>.getDataProvider()
 //        
