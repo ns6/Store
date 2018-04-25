@@ -23,6 +23,7 @@ class BrandsList: UITableViewController {
         }
     }
     
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var store: Store!
