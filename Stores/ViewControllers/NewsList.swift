@@ -7,11 +7,17 @@
 //
 
 import Foundation
-
 import UIKit
 
-class NewsList: UIViewController, Storyboardable {
+protocol NewsListViewable {
+    
+}
 
+class NewsList: UIViewController, Storyboardable, NewsListControllable {
+    
+    //NewsListControllable:
+    lazy var instance: UIViewController = { return NewsList.storyboardViewController() }()
+    
     @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
