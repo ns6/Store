@@ -36,12 +36,12 @@ class MenuList: UITableViewController, Storyboardable, MenuListViewable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableDirector = TableDirector(tableView: tableVieW)
-        sectionFirst = TableSection.init()
-        sectionSecond = TableSection.init()
-        tableDirector += sectionFirst
-        tableDirector += sectionSecond
-        
+//        tableDirector = TableDirector(tableView: tableVieW)
+//        sectionFirst = TableSection.init()
+//        sectionSecond = TableSection.init()
+//        tableDirector += sectionFirst
+//        tableDirector += sectionSecond
+
        
         //self.sectionFirst.headerTitle = "Меню";
         //self.sectionSecond.headerTitle = "Магазины"
@@ -56,7 +56,6 @@ class MenuList: UITableViewController, Storyboardable, MenuListViewable {
         }
         let statisticsRow = TableRow<MenuCell>(item: "Статистика")
             .on(.click) { (options) in
-                //return true
             }
             .on(.canEdit) { (options) -> Bool in
                 return false
@@ -81,7 +80,7 @@ class MenuList: UITableViewController, Storyboardable, MenuListViewable {
         self.tableDirector.insert(cellType: MenuStoresCell.self, items: stores, inSection: 1, withUpdate: .top,
         configure: { (cell) in
             cell.on(.click) { (options) in
-                //return true
+                    print("CLICK")
                 }
                 .on(.canEdit) { (options) -> Bool in
                     return false
