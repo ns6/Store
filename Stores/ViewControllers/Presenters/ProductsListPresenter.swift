@@ -10,7 +10,7 @@ import Foundation
 
 class ProductsListPresenter: DocumentIdentifiable {
     
-    private let product: Product
+    private let product: ProductEntity
     let id: String
     var indexRow: UInt { return product.indexRow }
     let name: String
@@ -19,7 +19,7 @@ class ProductsListPresenter: DocumentIdentifiable {
     var soldSizes: [Size]!
     var instock: String!
     
-    init(product: Product) {
+    init(product: ProductEntity) {
         self.product = product
         self.id = product.id
         //self.indexRow = product.indexRow

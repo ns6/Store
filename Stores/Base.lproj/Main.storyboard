@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="78J-On-Dmy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,25 +13,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Reveal View Controller-->
-        <scene sceneID="IOu-mC-WWA">
-            <objects>
-                <viewController id="78J-On-Dmy" customClass="SWRevealViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BE4-A5-VA3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="8DA-JH-jJ8"/>
-                    </view>
-                    <connections>
-                        <segue destination="7ag-eh-pCB" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="AeU-FO-lhO"/>
-                        <segue destination="3Ul-Wt-f7g" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="rft-j8-2zL"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L10-7P-Z3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-857" y="870"/>
-        </scene>
         <!--Item 2-->
         <scene sceneID="jw6-Px-dKA">
             <objects>
@@ -59,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SI7-uB-0Rl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922" y="1648"/>
+            <point key="canvasLocation" x="969" y="1648"/>
         </scene>
         <!--Бренды-->
         <scene sceneID="10Y-KR-i9b">
@@ -201,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ucR-GY-RGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1102" y="1648"/>
+            <point key="canvasLocation" x="25" y="1648"/>
         </scene>
         <!--ProductsList-->
         <scene sceneID="AUU-JX-3eX">
@@ -1545,10 +1526,10 @@
             </objects>
             <point key="canvasLocation" x="2950" y="2402"/>
         </scene>
-        <!--Left Menu-->
+        <!--Menu List-->
         <scene sceneID="shX-Kf-LxE">
             <objects>
-                <tableViewController storyboardIdentifier="LeftMenu" id="7ag-eh-pCB" customClass="LeftMenu" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MenuList" id="7ag-eh-pCB" customClass="MenuList" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Vo2-EV-g3A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1575,9 +1556,6 @@
                                     <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <segue destination="3Ul-Wt-f7g" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="QTi-8H-E27"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuStoresCell" textLabel="ZZf-KX-tay" style="IBUITableViewCellStyleDefault" id="gtb-Ra-6k8" customClass="MenuStoresCell" customModule="Stores" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
@@ -1597,44 +1575,23 @@
                                     <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <segue destination="rtv-Jf-fYl" kind="custom" identifier="BrandsList" customClass="SWRevealViewControllerSeguePushController" id="W0M-rw-Xkb"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>
-                            <outlet property="dataSource" destination="7ag-eh-pCB" id="w9z-cZ-kGX"/>
-                            <outlet property="delegate" destination="7ag-eh-pCB" id="VBj-fx-Mrq"/>
+                            <outlet property="dataSource" destination="7ag-eh-pCB" id="t1o-N2-Xut"/>
+                            <outlet property="delegate" destination="7ag-eh-pCB" id="N3u-t6-EIC"/>
                         </connections>
                     </tableView>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableVW" destination="Vo2-EV-g3A" id="uuE-fd-sjn"/>
+                        <outlet property="tableVieW" destination="Vo2-EV-g3A" id="0WK-bK-F0b"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ivZ-gT-n0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-686" y="1648"/>
-        </scene>
-        <!--News-->
-        <scene sceneID="BJb-SR-zEW">
-            <objects>
-                <tabBarController id="3Ul-Wt-f7g" userLabel="News" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="25P-xo-mFd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="spz-aM-kH9" kind="relationship" relationship="viewControllers" id="wFh-1v-e9K"/>
-                        <segue destination="gou-vy-auh" kind="relationship" relationship="viewControllers" id="gsB-3l-yKM"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iyw-65-sfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="182" y="1648"/>
         </scene>
     </scenes>
     <resources>
@@ -1643,7 +1600,4 @@
         <image name="menu" width="22" height="22"/>
         <image name="square" width="1114" height="1114"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="QTi-8H-E27"/>
-    </inferredMetricsTieBreakers>
 </document>

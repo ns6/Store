@@ -8,25 +8,24 @@
 
 import UIKit
 
-protocol NewsListControllable {
-    var instance: UIViewController {get}
+protocol NewsListViewable: class {
     
 }
 
-struct NewsListController: RootControllable, NewsListViewable {
+struct NewsListController: RootControllable, NewsListControllable {
     
-    let view: NewsListControllable
+    weak var view: NewsListViewable!
     
-    init(view: NewsListControllable) {
+    init(view: NewsListViewable) {
         self.view = view
     }
     
     init() {
-        self.view = NewsList()
+        self.init(view: NewsList.storyboardViewController())
     }
     
     //RootControllable:
     func viewController() -> UIViewController {
-        return self.view.instance
+        return self.view as! UIViewController
     }
 }

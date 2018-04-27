@@ -11,7 +11,7 @@ import TableKit
 
 class ProductDetailsStatisticsCell: UITableViewCell, ConfigurableCell {
 
-    typealias T = Product
+    typealias T = ProductEntity
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +24,7 @@ class ProductDetailsStatisticsCell: UITableViewCell, ConfigurableCell {
         // Configure the view for the selected state
     }
     
-    func configure(with product: Product) {
+    func configure(with product: ProductEntity) {
         
     }
     

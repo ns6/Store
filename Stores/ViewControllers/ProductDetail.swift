@@ -12,7 +12,7 @@ import FirebaseFirestore
 import TableKit
 
 class ProductDetail: UITableViewController {
-    
+/*
     @IBOutlet weak var tableVW: UITableView!
     var product: Product!
     private var tableDirector: TableDirector!
@@ -65,4 +65,5 @@ class ProductDetail: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+ */
 }

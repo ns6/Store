@@ -11,7 +11,7 @@ import Foundation
 struct DataProviderFactory<EntityModelType: DocumentSerializableProtocol> {
     
    struct GetDataProvider {
-        static func leftSideMenu() -> DataProvider<EntityModelType> {
+        static func storesList() -> DataProvider<EntityModelType> {
             let path = EntityPath().Store().firestorePath()
             return DataProvider<EntityModelType>.init(dataBaseAPI: FirestoreDB(entityPath: path))
         }

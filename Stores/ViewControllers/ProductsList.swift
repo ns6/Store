@@ -12,19 +12,19 @@ import FirebaseFirestore
 import TableKit
 
 class ProductsList: UITableViewController {
-    
+ /*
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
             tableDirector = TableDirector(tableView: tableVW)
             section = TableSection.init()
             tableDirector += section
-            dataProvider = DataProviderFactory<Product>.GetDataProvider.productsList(storeId: store.id, brandId: brand.id)
+            dataProvider = DataProviderFactory<ProductEntity>.GetDataProvider.productsList(storeId: store.id, brandId: brand.id)
         }
     }
     
-    var store: Store!
-    var brand: Brand!
-    private var dataProvider: DataProvider<Product>!
+    var store: StoreEntity!
+    var brand: BrandEntity!
+    private var dataProvider: DataProvider<ProductEntity>!
     private var tableDirector: TableDirector!
     private var section: TableSection!
     
@@ -72,4 +72,5 @@ class ProductsList: UITableViewController {
             controller.navigationItem.leftItemsSupplementBackButton = true
         }
     }
+ */
 }

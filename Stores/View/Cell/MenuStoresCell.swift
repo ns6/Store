@@ -24,7 +24,7 @@ class MenuStoresCell: UITableViewCell, ConfigurableCell {
         // Configure the view for the selected state
     }
 
-    func configure(with store: Store) {
+    func configure(with store: StoreEntity) {
         self.textLabel?.text = store.name
         self.id = store.id
     }

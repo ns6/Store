@@ -9,14 +9,11 @@
 import Foundation
 import UIKit
 
-protocol NewsListViewable {
+protocol NewsListControllable {
     
 }
 
-class NewsList: UIViewController, Storyboardable, NewsListControllable {
-    
-    //NewsListControllable:
-    lazy var instance: UIViewController = { return NewsList.storyboardViewController() }()
+class NewsList: UIViewController, Storyboardable, NewsListViewable {
     
     @IBOutlet weak var label: UILabel!
     

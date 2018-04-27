@@ -24,11 +24,11 @@ class ProductDetailsInfoCell: UITableViewCell, ConfigurableCell {
     }
     
     func configure(with product: ProductDetailsInfoPresenter) {
-        self.name.text = product.name
-        self.sex.text = product.sex
-        self.color.text = product.color
-        self.purchasePrice.text = product.purchasePrice
-        self.sellPrice.text = product.sellPrice
+//        self.name.text = product.name
+//        self.sex.text = product.sex
+//        self.color.text = product.color
+//        self.purchasePrice.text = product.purchasePrice
+//        self.sellPrice.text = product.sellPrice
     }
     
     static var estimatedHeight: CGFloat? {

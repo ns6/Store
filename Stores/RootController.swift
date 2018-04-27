@@ -18,11 +18,11 @@ struct RootController {
     static func configure(appDelegate: AppDelegate) {
         FirebaseApp.configure()
         
-        let storesListController: RootControllable = StoresListController()
+        let menuListController: RootControllable = MenuListController()
         let newsListController: RootControllable = NewsListController()
-        let leftMenuViewController = LeftMenu.storyboardViewController()
+        let menuListViewController = menuListController.viewController()
         let newsListViewController = newsListController.viewController()
-        let rootViewController = SWRevealViewController(rearViewController: leftMenuViewController, frontViewController: newsListViewController)
+        let rootViewController = SWRevealViewController(rearViewController: newsListViewController, frontViewController: menuListViewController)
 
         appDelegate.window = UIWindow(frame: UIScreen.main.bounds)
         appDelegate.window?.rootViewController = rootViewController

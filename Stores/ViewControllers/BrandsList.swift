@@ -12,7 +12,7 @@ import FirebaseFirestore
 import TableKit
 
 class BrandsList: UITableViewController {
-    
+ /*
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
             tableDirector = TableDirector(tableView: tableVW)
@@ -141,6 +141,6 @@ class BrandsList: UITableViewController {
             // ...
         }
     }
-
+*/
 }
 

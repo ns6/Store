@@ -11,7 +11,7 @@ import TableKit
 
 class BrandCellView: UITableViewCell, ConfigurableCell {
     
-    typealias T = Brand
+    typealias T = BrandEntity
     
     public var id: String?
     
@@ -26,7 +26,7 @@ class BrandCellView: UITableViewCell, ConfigurableCell {
         // Configure the view for the selected state
     }
     
-    func configure(with brand: Brand) {
+    func configure(with brand: BrandEntity) {
         self.textLabel?.text = brand.name
         self.id = brand.id
     }
