@@ -11,13 +11,7 @@ import Foundation
 import FirebaseFirestore
 import TableKit
 
-protocol MenuListControllable {
-    
-}
-
-class MenuList: UITableViewController, Storyboardable, MenuListViewable {
-    
-    var controller: MenuListControllable!
+class MenuListViewController: UITableViewController {
     
     @IBOutlet weak var tableVieW: UITableView! {
         didSet {
@@ -29,20 +23,14 @@ class MenuList: UITableViewController, Storyboardable, MenuListViewable {
         }
     }
     
+    private var controller: MenuListControllerInterface!
     private var tableDirector: TableDirector!
     private var sectionFirst: TableSection!
     private var sectionSecond: TableSection!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        tableDirector = TableDirector(tableView: tableVieW)
-//        sectionFirst = TableSection.init()
-//        sectionSecond = TableSection.init()
-//        tableDirector += sectionFirst
-//        tableDirector += sectionSecond
 
-       
         //self.sectionFirst.headerTitle = "Меню";
         //self.sectionSecond.headerTitle = "Магазины"
         
@@ -75,28 +63,6 @@ class MenuList: UITableViewController, Storyboardable, MenuListViewable {
         
     }
     
-    //MenuListViewable:
-    func newData(stores: [StoreEntity]) {
-        self.tableDirector.insert(cellType: MenuStoresCell.self, items: stores, inSection: 1, withUpdate: .top,
-        configure: { (cell) in
-            cell.on(.click) { (options) in
-                    print("CLICK")
-                }
-                .on(.canEdit) { (options) -> Bool in
-                    return false
-            }
-        })
-    }
-    
-    func modifiedData(stores: [StoreEntity]) {
-        self.tableDirector.modify(cellType: MenuStoresCell.self, items: stores, inSection: 1)
-    }
-    
-    func removedData(stores: [StoreEntity]) {
-        self.tableDirector.remove(items: stores, inSection: 1, withUpdate: .left)
-    }
-    
-    
     // MARK: - Segues
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -112,6 +78,37 @@ class MenuList: UITableViewController, Storyboardable, MenuListViewable {
         }
     }
     */
+}
+
+extension MenuListViewController: MenuListViewInterface {
+    @discardableResult
+    func setController(controller: MenuListControllerInterface) -> Bool {
+        if self.controller == nil {
+            self.controller = controller
+            return true
+        }
+        return false
+    }
+
+    func newData(entity: [StoreEntity]) {
+        self.tableDirector.insert(cellType: MenuStoresCell.self, items: entity, inSection: 1, withUpdate: .top,
+        configure: { (cell) in
+            cell.on(.click) { (options) in
+                self.controller.didSelectRow(forStore: options.item)
+            }
+            .on(.canEdit) { (options) -> Bool in
+                return false
+            }
+        })
+    }
+    
+    func modifiedData(entity: [StoreEntity]) {
+        self.tableDirector.modify(cellType: MenuStoresCell.self, items: entity, inSection: 1)
+    }
+    
+    func removedData(entity: [StoreEntity]) {
+        self.tableDirector.remove(items: entity, inSection: 1, withUpdate: .left)
+    }
 }
 
 

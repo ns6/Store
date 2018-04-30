@@ -85,7 +85,7 @@
         <!--Item-->
         <scene sceneID="goJ-gO-i3O">
             <objects>
-                <viewController storyboardIdentifier="NewsList" id="spz-aM-kH9" customClass="NewsList" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsListViewController" id="spz-aM-kH9" customClass="NewsListViewController" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TqJ-Gz-PMG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1526,10 +1526,10 @@
             </objects>
             <point key="canvasLocation" x="2950" y="2402"/>
         </scene>
-        <!--Menu List-->
+        <!--Menu List View Controller-->
         <scene sceneID="shX-Kf-LxE">
             <objects>
-                <tableViewController storyboardIdentifier="MenuList" id="7ag-eh-pCB" customClass="MenuList" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MenuListViewController" id="7ag-eh-pCB" customClass="MenuListViewController" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Vo2-EV-g3A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

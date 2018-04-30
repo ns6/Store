@@ -9,13 +9,10 @@
 import Foundation
 import UIKit
 
-protocol NewsListControllable {
-    
-}
-
-class NewsList: UIViewController, Storyboardable, NewsListViewable {
+class NewsListViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
+    private var controller: NewsListControllerInterface!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,3 +36,13 @@ class NewsList: UIViewController, Storyboardable, NewsListViewable {
     
 }
 
+extension NewsListViewController: NewsListViewInterface {
+    @discardableResult
+    func setController(controller: NewsListControllerInterface) -> Bool {
+        if self.controller == nil {
+            self.controller = controller
+            return true
+        }
+        return false
+    }
+}

@@ -8,39 +8,54 @@
 
 import UIKit
 
-protocol MenuListViewable: class {
-    func newData(stores: [StoreEntity])
-    func modifiedData(stores: [StoreEntity])
-    func removedData(stores: [StoreEntity])
-}
-
-struct MenuListController: RootControllable, MenuListControllable {
+struct MenuListController {
     
-    weak var view: MenuListViewable!
-    private let dataProvider: DataProvider<StoreEntity>!
+    weak var view: MenuListViewInterface!
+    private let dataProvider: DataProvider<StoreEntity>
     
-    init(view: MenuListViewable, dataProvider: DataProvider<StoreEntity>) {
+    //For dependecy injection
+    init(view: MenuListViewInterface, dataProvider: DataProvider<StoreEntity>) {
         self.view = view
         self.dataProvider = dataProvider
+        self.view.setController(controller: self)
         self.start()
     }
     
+    //By default
     init() {
-        self.init(view: MenuList.storyboardViewController(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
-    }
-    
-    //RootControllable:
-    func viewController() -> UIViewController {
-        return self.view as! UIViewController
+        self.init(view: MenuListViewController.storyboardViewController(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
     }
     
     private func start() {
+        
         self.dataProvider.newData { (stores) in //New data coming
-            self.view.newData(stores: stores)
+            self.view.newData(entity: stores)
         }.modifiedData { (stores) in //Data modified
-            self.view.modifiedData(stores: stores)
+            self.view.modifiedData(entity: stores)
         }.removedData { (stores) in //Remove data
-            self.view.removedData(stores: stores)
+            self.view.removedData(entity: stores)
         }.listen()
     }
+}
+
+extension MenuListController: RootControllable {
+    func viewController() -> UIViewController {
+        return self.view as! UIViewController
+    }
+}
+
+extension MenuListController: MenuListControllerInterface{
+    func didSelectRow(forStore store: StoreEntity) {
+        
+    }
+    
+    func didSelectRowForNews() {
+        
+    }
+    
+    func didSelectRowForStatistics() {
+        
+    }
+    
+    
 }
