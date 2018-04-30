@@ -15,6 +15,8 @@ protocol RootControllable {
 }
 
 struct RootController {
+    static var shareInstance: SWRevealViewController?
+
     static func configure(appDelegate: AppDelegate) {
         FirebaseApp.configure()
         
@@ -31,5 +33,7 @@ struct RootController {
         appDelegate.window?.makeKeyAndVisible()
 
         rootViewController?.setFrontViewPosition(FrontViewPosition.left, animated: false)
+
+        self.shareInstance = rootViewController
     }
 }

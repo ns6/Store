@@ -46,7 +46,7 @@ extension MenuListController: RootControllable {
 
 extension MenuListController: MenuListControllerInterface{
     func didSelectRow(forStore store: StoreEntity) {
-        
+        BrandsListController(store: store)
     }
     
     func didSelectRowForNews() {

@@ -45,7 +45,7 @@
         <!--Бренды-->
         <scene sceneID="10Y-KR-i9b">
             <objects>
-                <tableViewController storyboardIdentifier="BrandsList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="g9w-KB-ZET" customClass="BrandsList" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BrandsListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="g9w-KB-ZET" customClass="BrandsListViewController" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jVd-hL-hUI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1511,20 +1511,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGf-Dl-DAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6502" y="2551"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="UfR-EL-t9T">
-            <objects>
-                <tabBarController id="rtv-Jf-fYl" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wd4-gk-0Mo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="abd-Yj-fgT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2950" y="2402"/>
         </scene>
         <!--Menu List View Controller-->
         <scene sceneID="shX-Kf-LxE">

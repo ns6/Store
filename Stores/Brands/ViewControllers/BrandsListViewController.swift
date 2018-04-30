@@ -11,7 +11,7 @@ import UIKit
 import FirebaseFirestore
 import TableKit
 
-class BrandsList: UITableViewController {
+class BrandsListViewController: UITableViewController {
  
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
@@ -24,9 +24,7 @@ class BrandsList: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-    private var controller: MenuListControllerInterface!
-    
-    
+    private var controller: BrandsListControllerInterface!
     private var tableDirector: TableDirector!
     private var section: TableSection!
     
@@ -39,8 +37,6 @@ class BrandsList: UITableViewController {
         
         //self.tableDirector.sections.first?.headerTitle = "TITLE"
         //let db = Firestore.firestore().collection("Stores/\(store.id)/Brands").whereField("count", isGreaterThan: 0)
-                
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +53,8 @@ class BrandsList: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+
+    /*
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProductsList" {
@@ -107,8 +104,43 @@ class BrandsList: UITableViewController {
             // ...
         }
     }
+    */
 }
 
-extension BrandsList: BrandsListViewInterface {
-    
+extension BrandsListViewController: BrandsListViewInterface {
+    @discardableResult
+    func setController(controller: BrandsListControllerInterface) -> Bool {
+        if self.controller == nil {
+            self.controller = controller
+            return true
+        }
+        return false
+    }
+
+    func newData(entity: [BrandEntity]) {
+        self.tableDirector.insert(cellType: BrandCellView.self, items: entity, inSection: 0, withUpdate: .top, configure: { (cell) in
+            cell.on(.click) { (options) in
+                //return true
+            }
+            .on(.canEdit) { (options) -> Bool in
+                    return true
+            }
+//            .on(.clickDelete) { [weak self] (options) in
+//                self?.dataProvider
+//                    .Store(value: self.store.id)
+//                    .Brand(value: options.item.id)
+//                    .deleteObject(completion: { (err) in
+//                        if let err = err { fatalError(err.localizedDescription) }
+//                    })
+//            }
+        })
+    }
+
+    func modifiedData(entity: [BrandEntity]) {
+        self.tableDirector.modify(cellType: BrandCellView.self, items: entity, inSection: 0)
+    }
+
+    func removedData(entity: [BrandEntity]) {
+        self.tableDirector.remove(items: entity, inSection: 0, withUpdate: .left)
+    }
 }
