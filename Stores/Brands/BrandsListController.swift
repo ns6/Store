@@ -8,9 +8,11 @@
 
 import Foundation
 
+typealias Presenter = BrandListPresenterInterface & BrandListPresenterSendDataInterface & BrandListPresenterResponseInterface
+
 protocol BrandsListControllerInitInterface {
     init(store: StoreEntity)
-    init(presenter: BrandListPresenterInterface,
+    init(presenter: Presenter,
          store: StoreEntity,
          dataProvider: DataProvider<BrandEntity>,
          dataProviderForSizesTypes: DataProvider<TypesSizesEntity>)
@@ -18,23 +20,25 @@ protocol BrandsListControllerInitInterface {
 
 struct BrandsListController: BrandsListControllerInitInterface {
 
-    private let presenter: BrandListPresenterInterface
+    private let presenter: Presenter
     private var store: StoreEntity
     private let dataProvider: DataProvider<BrandEntity>
     private let dataProviderForSizesTypes: DataProvider<TypesSizesEntity>
     
     //By default
     init(store: StoreEntity) {
+        let presenter = BrandListPresenter()
         let dataProvider = DataProviderFactory<BrandEntity>.GetDataProvider.brandsList(storeId: store.id)
         let dataProviderForSizesTypes = DataProviderFactory<TypesSizesEntity>.GetDataProvider.sizesTypesList(storeId: store.id)
-        self.init(presenter: BrandListPresenter(),
+
+        self.init(presenter: presenter,
                   store: store,
                   dataProvider: dataProvider,
                   dataProviderForSizesTypes: dataProviderForSizesTypes)
     }
     
     //For dependecy injection
-    init(presenter: BrandListPresenterInterface,
+    init(presenter: Presenter,
          store: StoreEntity,
          dataProvider: DataProvider<BrandEntity>,
          dataProviderForSizesTypes: DataProvider<TypesSizesEntity>) {
@@ -42,10 +46,24 @@ struct BrandsListController: BrandsListControllerInitInterface {
         self.store = store
         self.dataProvider = dataProvider
         self.dataProviderForSizesTypes = dataProviderForSizesTypes
+
         self.start()
     }
     
     private func start() {
+
+        //setup presenter
+        self.presenter.setViewDidLoad { (view) in
+            print("HELLO")
+        }.setViewDidDisappear { (view) in
+            print("GOOD BY")
+        }.setViewDidSelectBrand { (brand) in
+            print(brand)
+        }
+
+        self.presenter.setViewOption { () -> ViewOptions in
+            return .regularView
+        }
 
         dataProviderForSizesTypes.newData { (sizesTypes) in //New data coming
 
@@ -64,19 +82,5 @@ struct BrandsListController: BrandsListControllerInitInterface {
         }.removedData { (brands) in //Remove data
             //self.view?.removedData(entity: brands)
         }.listen()
-    }
-}
-
-extension BrandsListController: BrandsListControllerInterface {
-    func viewDidLoad() {
-//        self.start()
-    }
-    
-    func viewDidDisappear() {
-        
-    }
-    
-    func didSelectRow(forBrand brand: BrandEntity) {
-        
     }
 }

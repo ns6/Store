@@ -13,7 +13,7 @@ struct MenuListController {
     weak var view: MenuListViewInterface!
     private let dataProvider: DataProvider<StoreEntity>
     private let superController: RootController
-    private var subController: BrandsListControllerInterface?
+    private var subController: Any?
     
     //For dependecy injection
     init(superController: RootController, view: MenuListViewInterface, dataProvider: DataProvider<StoreEntity>) {

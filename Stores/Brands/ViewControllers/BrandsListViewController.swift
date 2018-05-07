@@ -15,7 +15,11 @@ class BrandsListViewController: UITableViewController {
     
     private var tableDirector: TableDirector!
     private var section: TableSection!
+
+    //BrandsListViewInterface
     var didLoadBlock: ((_ sender: BrandsListViewInterface)->())?
+    var didDisappearBlock: ((BrandsListViewInterface) -> ())?
+    var didSelectBrandBlock: ((BrandEntity) -> ())?
     
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
@@ -29,7 +33,6 @@ class BrandsListViewController: UITableViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("awakeFromNib")
     }
     
     override func viewDidLoad() {
@@ -61,6 +64,7 @@ class BrandsListViewController: UITableViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        didDisappearBlock?(self)
     }
 
     /*
@@ -121,7 +125,7 @@ extension BrandsListViewController: BrandsListViewInterface {
     func newData(entity: [BrandEntity]) {
         self.tableDirector.insert(cellType: BrandCellView.self, items: entity, inSection: 0, withUpdate: .top, configure: { (cell) in
             cell.on(.click) { (options) in
-                //return true
+                self.didSelectBrandBlock?(options.item)
             }
             .on(.canEdit) { (options) -> Bool in
                     return true

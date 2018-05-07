@@ -11,25 +11,56 @@ import Foundation
 protocol BrandListPresenterInterface {
     init()
     init(emptyState: EmptyStateViewControllerInterface, normalState: BrandsListViewInterface)
+    func setViewOption(_: @escaping () -> ViewOptions)
+}
+
+protocol BrandListPresenterSendDataInterface {
     func newData(_ brands: [BrandEntity])
     func modifiedData(_ brands: [BrandEntity])
     func removedData(_ brands: [BrandEntity])
 }
 
-class BrandListPresenter: BrandListPresenterInterface {
+protocol BrandListPresenterResponseInterface{
+    @discardableResult
+    func setViewDidLoad(_: @escaping (_ sender: BrandsListViewInterface)->()) -> BrandListPresenterResponseInterface
+    @discardableResult
+    func setViewDidDisappear(_: @escaping (_ sender: BrandsListViewInterface)->()) -> BrandListPresenterResponseInterface
+    @discardableResult
+    func setViewDidSelectBrand(_: @escaping (_ brand: BrandEntity)->()) -> BrandListPresenterResponseInterface
+}
 
-    private var viewDidLoad: Bool = false
-    private lazy var emptyState: EmptyStateViewControllerInterface = EmptyStateViewController.storyboardViewController()
-    private lazy var normalState: BrandsListViewInterface = BrandsListViewController.storyboardViewController()
-    
-    required init() {
-        self.present(viewController: emptyState as! UIViewController)
+enum ViewOptions {
+    case regularView
+}
+
+class BrandListPresenter: BrandListPresenterInterface {
+    private struct ViewOptionsContainer {
+        static let option1: BrandsListViewInterface = BrandsListViewController.storyboardViewController()
     }
 
-    required init(emptyState: EmptyStateViewControllerInterface, normalState: BrandsListViewInterface) {
-        self.emptyState = emptyState
-        self.normalState = normalState
-        self.present(viewController: emptyState as! UIViewController)
+    private var viewIsLoaded: Bool = false
+    private let emptyState: EmptyStateViewControllerInterface
+    private var normalState: BrandsListViewInterface
+
+    // For BrandListPresenterInterface
+    private var viewOptions: (() -> ViewOptions)?
+
+    // For BrandListPresenterResponseInterface
+    private var viewDidLoad: ((_ sender: BrandsListViewInterface)->())?
+    private var viewDidDisappear: ((_ sender: BrandsListViewInterface)->())?
+    private var viewDidSelectBrand: ((_ brand: BrandEntity)->())?
+
+    private func setNormalState() {
+        if let block = self.viewOptions {
+            switch block() {
+            case .regularView:
+                self.normalState = ViewOptionsContainer.option1
+            }
+        }
+        // set actions for view response
+        self.normalState.didLoadBlock = self.viewDidLoad
+        self.normalState.didDisappearBlock = self.viewDidDisappear
+        self.normalState.didSelectBrandBlock = self.viewDidSelectBrand
     }
     
     private func present(viewController: UIViewController, animated: Bool = true) {
@@ -37,13 +68,46 @@ class BrandListPresenter: BrandListPresenterInterface {
         RootController.shareInstance?.setFrontViewPosition(FrontViewPosition.left, animated: animated)
         RootController.shareInstance?.pushFrontViewController(navController, animated: animated)
     }
-    
+
+    //MARK: - BrandListPresenterInterface Implementation
+    convenience required init() {
+        self.init(emptyState: EmptyStateViewController.storyboardViewController(), normalState: ViewOptionsContainer.option1)
+    }
+
+    required init(emptyState: EmptyStateViewControllerInterface, normalState: BrandsListViewInterface) {
+        self.emptyState = emptyState
+        self.normalState = normalState
+        self.present(viewController: emptyState as! UIViewController)
+    }
+
+    func setViewOption(_ block: @escaping () -> ViewOptions) {
+        if self.viewOptions == nil {
+            self.viewOptions = block
+        }
+    }
+}
+
+//MARK: - BrandListPresenterSendDataInterface Implementation
+extension BrandListPresenter: BrandListPresenterSendDataInterface {
     func newData(_ brands: [BrandEntity]) {
-        if self.viewDidLoad == false {
-            self.normalState.didLoadBlock =  {[weak self] (this) -> Void  in
-                self?.viewDidLoad = true
+        if self.viewIsLoaded == false {
+
+            let tmpViewDidLoadBlock = self.viewDidLoad
+            self.viewDidLoad = nil
+
+            self.viewDidLoad = { [weak self] (this)  in
+                if tmpViewDidLoadBlock != nil {
+                    tmpViewDidLoadBlock!(this)
+                }
+                self?.viewIsLoaded = true
                 this.newData(entity: brands)
             }
+            setNormalState()
+//            self.normalState.didLoadBlock =  {[weak self] (this)  in
+//                self?.viewDidLoad?()
+//                self?.viewIsLoaded = true
+//                this.newData(entity: brands)
+//            }
             present(viewController: normalState as! UIViewController, animated: false)
         } else {
             self.normalState.newData(entity: brands)
@@ -56,5 +120,32 @@ class BrandListPresenter: BrandListPresenterInterface {
     
     func removedData(_ brands: [BrandEntity]) {
         self.normalState.removedData(entity: brands)
+    }
+}
+
+//MARK: - BrandListPresenterResponseInterface Implementation
+extension BrandListPresenter: BrandListPresenterResponseInterface {
+    @discardableResult
+    func setViewDidLoad(_ block: @escaping (_ sender: BrandsListViewInterface) -> ()) -> BrandListPresenterResponseInterface {
+        if self.viewDidLoad == nil {
+            self.viewDidLoad = block
+        }
+        return self
+    }
+
+    @discardableResult
+    func setViewDidDisappear(_ block: @escaping (_ sender: BrandsListViewInterface) -> ()) -> BrandListPresenterResponseInterface {
+        if self.viewDidDisappear == nil {
+            self.viewDidDisappear = block
+        }
+        return self
+    }
+
+    @discardableResult
+    func setViewDidSelectBrand(_ block: @escaping (_ brand: BrandEntity) -> ()) -> BrandListPresenterResponseInterface {
+        if self.viewDidSelectBrand == nil {
+            self.viewDidSelectBrand = block
+        }
+        return self
     }
 }
