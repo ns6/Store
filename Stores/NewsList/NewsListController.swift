@@ -23,9 +23,3 @@ struct NewsListController: NewsListControllerInterface {
         self.init(view: NewsListViewController.storyboardViewController())
     }
 }
-
-extension NewsListController: RootControllable {
-    func viewController() -> UIViewController {
-        return self.view as! UIViewController
-    }
-}

@@ -12,7 +12,11 @@ import FirebaseFirestore
 import TableKit
 
 class BrandsListViewController: UITableViewController {
- 
+    
+    private var tableDirector: TableDirector!
+    private var section: TableSection!
+    var didLoadBlock: ((_ sender: BrandsListViewInterface)->())?
+    
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
             tableDirector = TableDirector(tableView: tableVW)
@@ -21,15 +25,16 @@ class BrandsListViewController: UITableViewController {
             
         }
     }
-    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-    private var controller: BrandsListControllerInterface!
-    private var tableDirector: TableDirector!
-    private var section: TableSection!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        print("awakeFromNib")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        didLoadBlock?(self)
         
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: "top.png"), for: UIBarMetrics.default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -52,6 +57,10 @@ class BrandsListViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 
     /*
@@ -108,14 +117,6 @@ class BrandsListViewController: UITableViewController {
 }
 
 extension BrandsListViewController: BrandsListViewInterface {
-    @discardableResult
-    func setController(controller: BrandsListControllerInterface) -> Bool {
-        if self.controller == nil {
-            self.controller = controller
-            return true
-        }
-        return false
-    }
 
     func newData(entity: [BrandEntity]) {
         self.tableDirector.insert(cellType: BrandCellView.self, items: entity, inSection: 0, withUpdate: .top, configure: { (cell) in

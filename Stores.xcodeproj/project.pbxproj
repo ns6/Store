@@ -57,6 +57,8 @@
 		A7A4251E1F7DE781005F9FF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A4251D1F7DE781005F9FF2 /* Assets.xcassets */; };
 		A7A425211F7DE781005F9FF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A4251F1F7DE781005F9FF2 /* LaunchScreen.storyboard */; };
 		A7A8A17A20150D8400D84E6E /* TypesSizesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A8A17920150D8400D84E6E /* TypesSizesEntity.swift */; };
+		A7CE8E81209D4E71002C35D6 /* BrandListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CE8E80209D4E71002C35D6 /* BrandListPresenter.swift */; };
+		A7CE8E85209FD842002C35D6 /* EmptyStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CE8E84209FD842002C35D6 /* EmptyStateViewController.swift */; };
 		A7E4A1CB1FAD8DED00204F44 /* DataProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4A1CA1FAD8DED00204F44 /* DataProviderFactory.swift */; };
 		A7E4A1CE1FAE890000204F44 /* TableKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4A1CD1FAE890000204F44 /* TableKitExtension.swift */; };
 		A7ED778F20803E0400AD6450 /* MockDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ED778E20803E0400AD6450 /* MockDataBase.swift */; };
@@ -156,6 +158,8 @@
 		A7A425271F7DE781005F9FF2 /* StoresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A4252D1F7DE781005F9FF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7A8A17920150D8400D84E6E /* TypesSizesEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesSizesEntity.swift; sourceTree = "<group>"; };
+		A7CE8E80209D4E71002C35D6 /* BrandListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandListPresenter.swift; sourceTree = "<group>"; };
+		A7CE8E84209FD842002C35D6 /* EmptyStateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewController.swift; sourceTree = "<group>"; };
 		A7E4A1CA1FAD8DED00204F44 /* DataProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderFactory.swift; sourceTree = "<group>"; };
 		A7E4A1CD1FAE890000204F44 /* TableKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableKitExtension.swift; sourceTree = "<group>"; };
 		A7ED778E20803E0400AD6450 /* MockDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataBase.swift; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 				A74E0E992095875D00F524DE /* ViewControllers */,
 				A74E0E9A2095877B00F524DE /* DataModels */,
 				A7833A492096B16100EC3A27 /* BrandsListInterfaces.swift */,
+				A7CE8E80209D4E71002C35D6 /* BrandListPresenter.swift */,
 				A74E0E7A20918CCA00F524DE /* BrandsListController.swift */,
 			);
 			path = Brands;
@@ -370,6 +375,7 @@
 		A76188711F8842E600DCB65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A7CE8E84209FD842002C35D6 /* EmptyStateViewController.swift */,
 				A76988B6204CB98C006668F2 /* Presenters */,
 				A7173FB51F886D5900BA1F4F /* ProductsListViewController.swift */,
 				A7173FB71F886D8300BA1F4F /* ProductDetailViewController.swift */,
@@ -787,6 +793,7 @@
 				A7E4A1CE1FAE890000204F44 /* TableKitExtension.swift in Sources */,
 				577959522091170F004277FE /* RootController.swift in Sources */,
 				A77A99E11F80CC3E00216BBB /* BrandsListViewController.swift in Sources */,
+				A7CE8E81209D4E71002C35D6 /* BrandListPresenter.swift in Sources */,
 				A755CDD3200AD187009664C1 /* Cell.swift in Sources */,
 				A74E0E7D20918CCA00F524DE /* BrandEntity.swift in Sources */,
 				A7F1E01720917DD300F9A120 /* NewsListController.swift in Sources */,
@@ -820,6 +827,7 @@
 				A743BB4B1FAD2D5A009EAA1B /* DataProvider.swift in Sources */,
 				A74E0E9320957A8200F524DE /* MenuListInterfaces.swift in Sources */,
 				A74E0E982095834B00F524DE /* NewsListInterfaces.swift in Sources */,
+				A7CE8E85209FD842002C35D6 /* EmptyStateViewController.swift in Sources */,
 				A76988BD204CE61F006668F2 /* CreateSizesView.swift in Sources */,
 				A74A25E5204B7E3400A99D83 /* ProductDetailsSellCell.swift in Sources */,
 				A76988BF204CFD13006668F2 /* ProductDetailsSizesPresenter.swift in Sources */,
