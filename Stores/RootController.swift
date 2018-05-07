@@ -10,21 +10,16 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 
-protocol RootControllable {
-    func viewController() -> UIViewController
-}
-
 struct RootController {
     static var shareInstance: SWRevealViewController?
 
-    static func configure(appDelegate: AppDelegate) {
-        FirebaseApp.configure()
+    func configure(appDelegate: AppDelegate) {
+        guard RootController.shareInstance == nil else { return }
         
-        let menuListController: RootControllable = MenuListController()
-        let newsListController: RootControllable = NewsListController()
-        let menuListViewController = menuListController.viewController()
-        let newsListViewController = newsListController.viewController()
-        let rootViewController = SWRevealViewController(rearViewController: menuListViewController, frontViewController: newsListViewController)
+        FirebaseApp.configure()
+
+        let rootViewController = SWRevealViewController(rearViewController: MenuListController(superController: self).view as! UIViewController,
+                                                        frontViewController: NewsListController().view as! UIViewController)
 
         rootViewController?.setFrontViewPosition(FrontViewPosition.right, animated: false)
 
@@ -34,6 +29,6 @@ struct RootController {
 
         rootViewController?.setFrontViewPosition(FrontViewPosition.left, animated: false)
 
-        self.shareInstance = rootViewController
+        RootController.shareInstance = rootViewController
     }
 }

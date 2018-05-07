@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        RootController.configure(appDelegate: self)
+        RootController().configure(appDelegate: self)
         
  
 //        dataProvider = DataProviderFactory<Brand>.getDataProvider()

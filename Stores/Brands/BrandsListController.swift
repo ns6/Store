@@ -8,39 +8,44 @@
 
 import Foundation
 
-struct BrandsListController {
-
-    weak var view: BrandsListViewInterface!
-    private var store: StoreEntity
-    private var dataProvider: DataProvider<BrandEntity>
-    private var dataProviderForSizesTypes: DataProvider<TypesSizesEntity>
-    
-    //For dependecy injection
-    init(view: BrandsListViewInterface,
+protocol BrandsListControllerInitInterface {
+    init(store: StoreEntity)
+    init(presenter: BrandListPresenterInterface,
          store: StoreEntity,
          dataProvider: DataProvider<BrandEntity>,
-         dataProviderForSizesTypes: DataProvider<TypesSizesEntity>) {
-        self.view = view
-        self.store = store
-        self.dataProvider = dataProvider
-        self.dataProviderForSizesTypes = dataProviderForSizesTypes
-        self.view.setController(controller: self)
-        self.start()
-    }
+         dataProviderForSizesTypes: DataProvider<TypesSizesEntity>)
+}
+
+struct BrandsListController: BrandsListControllerInitInterface {
+
+    private let presenter: BrandListPresenterInterface
+    private var store: StoreEntity
+    private let dataProvider: DataProvider<BrandEntity>
+    private let dataProviderForSizesTypes: DataProvider<TypesSizesEntity>
     
     //By default
     init(store: StoreEntity) {
         let dataProvider = DataProviderFactory<BrandEntity>.GetDataProvider.brandsList(storeId: store.id)
         let dataProviderForSizesTypes = DataProviderFactory<TypesSizesEntity>.GetDataProvider.sizesTypesList(storeId: store.id)
-        self.init(view: BrandsListViewController.storyboardViewController(),
-                 store: store,
+        self.init(presenter: BrandListPresenter(),
+                  store: store,
                   dataProvider: dataProvider,
                   dataProviderForSizesTypes: dataProviderForSizesTypes)
     }
     
+    //For dependecy injection
+    init(presenter: BrandListPresenterInterface,
+         store: StoreEntity,
+         dataProvider: DataProvider<BrandEntity>,
+         dataProviderForSizesTypes: DataProvider<TypesSizesEntity>) {
+        self.presenter = presenter
+        self.store = store
+        self.dataProvider = dataProvider
+        self.dataProviderForSizesTypes = dataProviderForSizesTypes
+        self.start()
+    }
+    
     private func start() {
-        RootController.shareInstance?.setFrontViewPosition(FrontViewPosition.left, animated: false)
-        RootController.shareInstance?.pushFrontViewController(self.view as! UIViewController, animated: true)
 
         dataProviderForSizesTypes.newData { (sizesTypes) in //New data coming
 
@@ -52,27 +57,26 @@ struct BrandsListController {
         
         //.filter(field: "count", isGreaterThan: 0)
         dataProvider.newData { (brands) in //New data coming
-            self.view.newData(entity: brands)
+            self.presenter.newData(brands)
+            //self.view?.newData(entity: brands)
         }.modifiedData { (brands) in //Data modified
-            self.view.modifiedData(entity: brands)
+            //self.view?.modifiedData(entity: brands)
         }.removedData { (brands) in //Remove data
-            self.view.removedData(entity: brands)
+            //self.view?.removedData(entity: brands)
         }.listen()
     }
 }
 
 extension BrandsListController: BrandsListControllerInterface {
-    func didSelectRow(forBrand brand: BrandEntity) {
+    func viewDidLoad() {
+//        self.start()
+    }
+    
+    func viewDidDisappear() {
         
     }
     
-    func didSelectRowForNews() {
-
+    func didSelectRow(forBrand brand: BrandEntity) {
+        
     }
-    
-    func didSelectRowForStatistics() {
-
-    }
-    
-    
 }

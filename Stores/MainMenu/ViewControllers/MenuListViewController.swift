@@ -30,7 +30,7 @@ class MenuListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.controller.viewDidLoad()
         //self.sectionFirst.headerTitle = "Меню";
         //self.sectionSecond.headerTitle = "Магазины"
         

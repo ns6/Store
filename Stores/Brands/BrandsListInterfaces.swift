@@ -9,19 +9,15 @@
 import Foundation
 
 protocol BrandsListViewInterface: Storyboardable {
-    func setController(controller: BrandsListControllerInterface) -> Bool
+    var didLoadBlock: ((_ sender: BrandsListViewInterface)->())? {get set}
     func newData(entity: [BrandEntity])
     func modifiedData(entity: [BrandEntity])
     func removedData(entity: [BrandEntity])
 }
 
 protocol BrandsListControllerInterface {
-    func didSelectRow(forBrand brand: BrandEntity)
-    func didSelectRowForNews()
-    func didSelectRowForStatistics()
-}
-
-protocol BrandsListSegueInterface {
-    func segueToBrandsList(forStore store: StoreEntity)
+    mutating func viewDidLoad()
+    mutating func viewDidDisappear()
+    mutating func didSelectRow(forBrand brand: BrandEntity)
 }
 

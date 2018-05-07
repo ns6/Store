@@ -12,22 +12,24 @@ struct MenuListController {
     
     weak var view: MenuListViewInterface!
     private let dataProvider: DataProvider<StoreEntity>
+    private let superController: RootController
+    private var subController: BrandsListControllerInterface?
     
     //For dependecy injection
-    init(view: MenuListViewInterface, dataProvider: DataProvider<StoreEntity>) {
+    init(superController: RootController, view: MenuListViewInterface, dataProvider: DataProvider<StoreEntity>) {
         self.view = view
         self.dataProvider = dataProvider
+        self.superController = superController
+        
         self.view.setController(controller: self)
-        self.start()
     }
     
     //By default
-    init() {
-        self.init(view: MenuListViewController.storyboardViewController(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
+    init(superController: RootController) {
+        self.init(superController: superController, view: MenuListViewController.storyboardViewController(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
     }
     
     private func start() {
-        
         self.dataProvider.newData { (stores) in //New data coming
             self.view.newData(entity: stores)
         }.modifiedData { (stores) in //Data modified
@@ -38,15 +40,17 @@ struct MenuListController {
     }
 }
 
-extension MenuListController: RootControllable {
-    func viewController() -> UIViewController {
-        return self.view as! UIViewController
-    }
-}
-
 extension MenuListController: MenuListControllerInterface{
-    func didSelectRow(forStore store: StoreEntity) {
-        BrandsListController(store: store)
+    func viewDidLoad() {
+        self.start()
+    }
+    
+    mutating func viewDidDisappear() {
+        self.subController = nil
+    }
+    
+    mutating func didSelectRow(forStore store: StoreEntity) {
+        self.subController = BrandsListController(store: store)
     }
     
     func didSelectRowForNews() {
