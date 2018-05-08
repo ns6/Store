@@ -8,11 +8,11 @@
 
 import Foundation
 
-typealias Presenter = BrandListPresenterInterface & BrandListPresenterSendDataInterface & BrandListPresenterResponseInterface
+
 
 protocol BrandsListControllerInitInterface {
     init(store: StoreEntity)
-    init(presenter: Presenter,
+    init(presenter: BrandListPresenterInterface & BrandListPresenterSendDataInterface & BrandListPresenterResponseInterface,
          store: StoreEntity,
          dataProvider: DataProvider<BrandEntity>,
          dataProviderForSizesTypes: DataProvider<TypesSizesEntity>)
@@ -20,6 +20,8 @@ protocol BrandsListControllerInitInterface {
 
 struct BrandsListController: BrandsListControllerInitInterface {
 
+    typealias Presenter = BrandListPresenterInterface & BrandListPresenterSendDataInterface & BrandListPresenterResponseInterface
+    
     private let presenter: Presenter
     private var store: StoreEntity
     private let dataProvider: DataProvider<BrandEntity>
@@ -76,11 +78,10 @@ struct BrandsListController: BrandsListControllerInitInterface {
         //.filter(field: "count", isGreaterThan: 0)
         dataProvider.newData { (brands) in //New data coming
             self.presenter.newData(brands)
-            //self.view?.newData(entity: brands)
         }.modifiedData { (brands) in //Data modified
-            //self.view?.modifiedData(entity: brands)
+            self.presenter.modifiedData(brands)
         }.removedData { (brands) in //Remove data
-            //self.view?.removedData(entity: brands)
+            self.presenter.removedData(brands)
         }.listen()
     }
 }

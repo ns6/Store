@@ -9,17 +9,12 @@
 import Foundation
 
 protocol MenuListViewInterface: Storyboardable {
-    @discardableResult
-    func setController(controller: MenuListControllerInterface) -> Bool
+    var didLoadBlock: ((_ sender: MenuListViewInterface)->())? {get set}
+    var didDisappearBlock: ((_ sender: MenuListViewInterface)->())? {get set}
+    var didSelectStoreBlock: ((_ brand: StoreEntity)->())? {get set}
+    
     func newData(entity: [StoreEntity])
     func modifiedData(entity: [StoreEntity])
     func removedData(entity: [StoreEntity])
 }
 
-protocol MenuListControllerInterface {
-    mutating func viewDidLoad()
-    mutating func viewDidDisappear()
-    mutating func didSelectRow(forStore store: StoreEntity)
-    func didSelectRowForNews()
-    func didSelectRowForStatistics()
-}

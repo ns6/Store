@@ -56,6 +56,7 @@ class BrandListPresenter: BrandListPresenterInterface {
             case .regularView:
                 self.normalState = ViewOptionsContainer.option1
             }
+            
         }
         // set actions for view response
         self.normalState.didLoadBlock = self.viewDidLoad
@@ -103,11 +104,7 @@ extension BrandListPresenter: BrandListPresenterSendDataInterface {
                 this.newData(entity: brands)
             }
             setNormalState()
-//            self.normalState.didLoadBlock =  {[weak self] (this)  in
-//                self?.viewDidLoad?()
-//                self?.viewIsLoaded = true
-//                this.newData(entity: brands)
-//            }
+
             present(viewController: normalState as! UIViewController, animated: false)
         } else {
             self.normalState.newData(entity: brands)

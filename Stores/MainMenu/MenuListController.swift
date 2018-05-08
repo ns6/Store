@@ -8,20 +8,26 @@
 
 import UIKit
 
-struct MenuListController {
+protocol MenuListControllerInitInterface {
+    init()
+    init(presenter: MenuListPresenterInterface & MenuListPresenterSendDataInterface & MenuListPresenterResponseInterface,
+         dataProvider: DataProvider<BrandEntity>)
+}
+
+struct MenuListController: MenuListControllerInitInterface {
     
-    weak var view: MenuListViewInterface!
+    typealias Presenter = MenuListPresenterInterface & MenuListPresenterSendDataInterface & MenuListPresenterResponseInterface
+    
+    private let presenter: Presenter
     private let dataProvider: DataProvider<StoreEntity>
     private let superController: RootController
     private var subController: Any?
     
     //For dependecy injection
     init(superController: RootController, view: MenuListViewInterface, dataProvider: DataProvider<StoreEntity>) {
-        self.view = view
         self.dataProvider = dataProvider
         self.superController = superController
         
-        self.view.setController(controller: self)
     }
     
     //By default
@@ -38,28 +44,4 @@ struct MenuListController {
             self.view.removedData(entity: stores)
         }.listen()
     }
-}
-
-extension MenuListController: MenuListControllerInterface{
-    func viewDidLoad() {
-        self.start()
-    }
-    
-    mutating func viewDidDisappear() {
-        self.subController = nil
-    }
-    
-    mutating func didSelectRow(forStore store: StoreEntity) {
-        self.subController = BrandsListController(store: store)
-    }
-    
-    func didSelectRowForNews() {
-        
-    }
-    
-    func didSelectRowForStatistics() {
-        
-    }
-    
-    
 }

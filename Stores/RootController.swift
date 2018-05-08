@@ -18,8 +18,7 @@ struct RootController {
         
         FirebaseApp.configure()
 
-        let rootViewController = SWRevealViewController(rearViewController: MenuListController(superController: self).view as! UIViewController,
-                                                        frontViewController: NewsListController().view as! UIViewController)
+        let rootViewController = SWRevealViewController(rearViewController: MenuListController(superController: self).view as! UIViewController, frontViewController: NewsListController().view as! UIViewController)
 
         rootViewController?.setFrontViewPosition(FrontViewPosition.right, animated: false)
 
