@@ -23,14 +23,19 @@ class MenuListViewController: UITableViewController {
         }
     }
     
-    private var controller: MenuListControllerInterface!
     private var tableDirector: TableDirector!
     private var sectionFirst: TableSection!
     private var sectionSecond: TableSection!
     
+    //MenuListViewInterface
+    var didLoadBlock: ((_ sender: MenuListViewInterface)->())?
+    var didDisappearBlock: ((MenuListViewInterface) -> ())?
+    var didSelectStoreBlock: ((StoreEntity) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.controller.viewDidLoad()
+        didLoadBlock?(self)
+        
         //self.sectionFirst.headerTitle = "Меню";
         //self.sectionSecond.headerTitle = "Магазины"
         
@@ -63,6 +68,11 @@ class MenuListViewController: UITableViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        didDisappearBlock?(self)
+    }
+    
     // MARK: - Segues
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,20 +91,12 @@ class MenuListViewController: UITableViewController {
 }
 
 extension MenuListViewController: MenuListViewInterface {
-    @discardableResult
-    func setController(controller: MenuListControllerInterface) -> Bool {
-        if self.controller == nil {
-            self.controller = controller
-            return true
-        }
-        return false
-    }
 
     func newData(entity: [StoreEntity]) {
         self.tableDirector.insert(cellType: MenuStoresCell.self, items: entity, inSection: 1, withUpdate: .top,
         configure: { (cell) in
             cell.on(.click) { (options) in
-                self.controller.didSelectRow(forStore: options.item)
+                self.didSelectStoreBlock?(options.item)
             }
             .on(.canEdit) { (options) -> Bool in
                 return false

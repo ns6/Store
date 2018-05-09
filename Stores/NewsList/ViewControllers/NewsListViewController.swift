@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
-class NewsListViewController: UIViewController {
+class NewsListViewController: UIViewController, NewsListViewInterface {
     
     @IBOutlet weak var label: UILabel!
-    private var controller: NewsListControllerInterface!
+    var didLoadBlock: ((NewsListViewInterface) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        didLoadBlock?(self)
         
         if revealViewController() != nil {
             //            revealViewController().rearViewRevealWidth = 62
@@ -34,15 +35,4 @@ class NewsListViewController: UIViewController {
         }
     }
     
-}
-
-extension NewsListViewController: NewsListViewInterface {
-    @discardableResult
-    func setController(controller: NewsListControllerInterface) -> Bool {
-        if self.controller == nil {
-            self.controller = controller
-            return true
-        }
-        return false
-    }
 }

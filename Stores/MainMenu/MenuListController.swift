@@ -11,7 +11,7 @@ import UIKit
 protocol MenuListControllerInitInterface {
     init()
     init(presenter: MenuListPresenterInterface & MenuListPresenterSendDataInterface & MenuListPresenterResponseInterface,
-         dataProvider: DataProvider<BrandEntity>)
+         dataProvider: DataProvider<StoreEntity>)
 }
 
 struct MenuListController: MenuListControllerInitInterface {
@@ -20,28 +20,37 @@ struct MenuListController: MenuListControllerInitInterface {
     
     private let presenter: Presenter
     private let dataProvider: DataProvider<StoreEntity>
-    private let superController: RootController
-    private var subController: Any?
     
     //For dependecy injection
-    init(superController: RootController, view: MenuListViewInterface, dataProvider: DataProvider<StoreEntity>) {
+    init(presenter: Presenter, dataProvider: DataProvider<StoreEntity>) {
+        self.presenter = presenter
         self.dataProvider = dataProvider
-        self.superController = superController
         
+        self.start()
     }
     
     //By default
-    init(superController: RootController) {
-        self.init(superController: superController, view: MenuListViewController.storyboardViewController(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
+    init() {
+        self.init(presenter: MenuListPresenter(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
     }
     
     private func start() {
+        
+        //setup presenter
+        self.presenter.setViewDidLoad { (view) in
+            print("HELLO")
+        }.setViewDidDisappear { (view) in
+            print("GOOD BY")
+        }.setViewDidSelectStore { (store) in
+            BrandsListController(store: store)
+        }
+        
         self.dataProvider.newData { (stores) in //New data coming
-            self.view.newData(entity: stores)
+            self.presenter.newData(stores)
         }.modifiedData { (stores) in //Data modified
-            self.view.modifiedData(entity: stores)
+            self.presenter.modifiedData(stores)
         }.removedData { (stores) in //Remove data
-            self.view.removedData(entity: stores)
+            self.presenter.removedData(stores)
         }.listen()
     }
 }

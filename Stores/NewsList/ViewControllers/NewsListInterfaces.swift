@@ -9,9 +9,5 @@
 import Foundation
 
 protocol NewsListViewInterface: Storyboardable {
-    func setController(controller: NewsListControllerInterface) -> Bool
-}
-
-protocol NewsListControllerInterface {
-    
+    var didLoadBlock: ((_ sender: NewsListViewInterface)->())? {get set}
 }

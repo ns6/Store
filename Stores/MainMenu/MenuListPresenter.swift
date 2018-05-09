@@ -65,7 +65,7 @@ class MenuListPresenter: MenuListPresenterInterface {
     }
     
     private func present(menuListViewController: UIViewController, animated: Bool = false) {
-        //RootController.shareInstance?.setFrontViewPosition(FrontViewPosition.left, animated: animated)
+        //RootController.shareInstance?.setFrontViewPosition(.right, animated: animated)
         RootController.shareInstance?.setRear(menuListViewController, animated: animated)
     }
     

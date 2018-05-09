@@ -8,18 +8,23 @@
 
 import UIKit
 
-struct NewsListController: NewsListControllerInterface {
+protocol NewsListControllerInitInterface {
+    init()
+    init(presenter: NewsListPresenterInterface & NewsListPresenterResponseInterface)
+}
+
+struct NewsListController: NewsListControllerInitInterface {
         
-    weak var view: NewsListViewInterface!
+    typealias Presenter = NewsListPresenterInterface & NewsListPresenterResponseInterface
+    private let presenter: Presenter
     
     //For dependecy injection
-    init(view: NewsListViewInterface) {
-        self.view = view
-        self.view.setController(controller: self)
+    init(presenter: Presenter) {
+        self.presenter = presenter
     }
     
     //By default
     init() {
-        self.init(view: NewsListViewController.storyboardViewController())
+        self.init(presenter: NewsListPresenter())
     }
 }

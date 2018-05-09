@@ -7,27 +7,21 @@
 //
 
 import UIKit
-import FirebaseCore
-import FirebaseFirestore
 
 struct RootController {
     static var shareInstance: SWRevealViewController?
 
     func configure(appDelegate: AppDelegate) {
         guard RootController.shareInstance == nil else { return }
+        RootController.shareInstance = SWRevealViewController()
+        _ = MenuListController()
+        _ = NewsListController()
         
-        FirebaseApp.configure()
-
-        let rootViewController = SWRevealViewController(rearViewController: MenuListController(superController: self).view as! UIViewController, frontViewController: NewsListController().view as! UIViewController)
-
-        rootViewController?.setFrontViewPosition(FrontViewPosition.right, animated: false)
-
         appDelegate.window = UIWindow(frame: UIScreen.main.bounds)
-        appDelegate.window?.rootViewController = rootViewController
+        appDelegate.window?.rootViewController = RootController.shareInstance
         appDelegate.window?.makeKeyAndVisible()
-
-        rootViewController?.setFrontViewPosition(FrontViewPosition.left, animated: false)
-
-        RootController.shareInstance = rootViewController
+        
+        //RootController.shareInstance?.setFrontViewPosition(FrontViewPosition.right, animated: false)
+        //RootController.shareInstance?.setFrontViewPosition(FrontViewPosition.left, animated: false)
     }
 }
