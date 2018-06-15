@@ -152,6 +152,7 @@
 		A77A99E01F80CC3E00216BBB /* BrandsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsListViewController.swift; sourceTree = "<group>"; };
 		A7833A492096B16100EC3A27 /* BrandsListViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsListViewInterface.swift; sourceTree = "<group>"; };
 		A7858A512090386400F3F2FF /* MenuListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListController.swift; sourceTree = "<group>"; };
+		A787165420D35C83009CB4E3 /* Stores.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stores.entitlements; sourceTree = "<group>"; };
 		A7A425111F7DE781005F9FF2 /* Stores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A425141F7DE781005F9FF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7A4251D1F7DE781005F9FF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -438,6 +439,7 @@
 		A7A425131F7DE781005F9FF2 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
+				A787165420D35C83009CB4E3 /* Stores.entitlements */,
 				A7B12A811F80C2A500088E16 /* SideMenu */,
 				5779595420911B33004277FE /* Extension */,
 				A7F1E0122091765A00F9A120 /* Protocols */,
@@ -607,6 +609,11 @@
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					A7A425261F7DE781005F9FF2 = {
 						CreatedOnToolsVersion = 9.0;
@@ -1039,8 +1046,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Stores/Stores.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4FGD9KTRDJ;
 				INFOPLIST_FILE = Stores/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1059,8 +1067,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Stores/Stores.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4FGD9KTRDJ;
 				INFOPLIST_FILE = Stores/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

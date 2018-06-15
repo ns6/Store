@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 protocol BrandsListControllerInitInterface {
     init(store: StoreEntity)
     init(presenter: BrandListPresenterInterface & BrandListPresenterSendDataInterface & BrandListPresenterResponseInterface,
