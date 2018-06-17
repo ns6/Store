@@ -53,6 +53,10 @@
 		A77A99E11F80CC3E00216BBB /* BrandsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77A99E01F80CC3E00216BBB /* BrandsListViewController.swift */; };
 		A7833A4A2096B16100EC3A27 /* BrandsListViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7833A492096B16100EC3A27 /* BrandsListViewInterface.swift */; };
 		A7858A522090386400F3F2FF /* MenuListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7858A512090386400F3F2FF /* MenuListController.swift */; };
+		A787165620D481C7009CB4E3 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787165520D481C7009CB4E3 /* Filter.swift */; };
+		A787165820D4B5FF009CB4E3 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787165720D4B5FF009CB4E3 /* Order.swift */; };
+		A787165A20D4BFF9009CB4E3 /* DPFunctionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787165920D4BFF9009CB4E3 /* DPFunctionality.swift */; };
+		A787165C20D5D7BD009CB4E3 /* VCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A787165B20D5D7BD009CB4E3 /* VCFactory.swift */; };
 		A7A425151F7DE781005F9FF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A425141F7DE781005F9FF2 /* AppDelegate.swift */; };
 		A7A4251E1F7DE781005F9FF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A4251D1F7DE781005F9FF2 /* Assets.xcassets */; };
 		A7A425211F7DE781005F9FF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A4251F1F7DE781005F9FF2 /* LaunchScreen.storyboard */; };
@@ -61,7 +65,7 @@
 		A7CE8E85209FD842002C35D6 /* EmptyStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CE8E84209FD842002C35D6 /* EmptyStateViewController.swift */; };
 		A7CE8E8920A14948002C35D6 /* MenuListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CE8E8820A14948002C35D6 /* MenuListPresenter.swift */; };
 		A7CE8E8B20A27891002C35D6 /* NewsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CE8E8A20A27891002C35D6 /* NewsListPresenter.swift */; };
-		A7E4A1CB1FAD8DED00204F44 /* DataProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4A1CA1FAD8DED00204F44 /* DataProviderFactory.swift */; };
+		A7E4A1CB1FAD8DED00204F44 /* DPFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4A1CA1FAD8DED00204F44 /* DPFactory.swift */; };
 		A7E4A1CE1FAE890000204F44 /* TableKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4A1CD1FAE890000204F44 /* TableKitExtension.swift */; };
 		A7ED778F20803E0400AD6450 /* MockDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ED778E20803E0400AD6450 /* MockDataBase.swift */; };
 		A7F1E01720917DD300F9A120 /* NewsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F1E01620917DD300F9A120 /* NewsListController.swift */; };
@@ -153,6 +157,10 @@
 		A7833A492096B16100EC3A27 /* BrandsListViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsListViewInterface.swift; sourceTree = "<group>"; };
 		A7858A512090386400F3F2FF /* MenuListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListController.swift; sourceTree = "<group>"; };
 		A787165420D35C83009CB4E3 /* Stores.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stores.entitlements; sourceTree = "<group>"; };
+		A787165520D481C7009CB4E3 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		A787165720D4B5FF009CB4E3 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		A787165920D4BFF9009CB4E3 /* DPFunctionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPFunctionality.swift; sourceTree = "<group>"; };
+		A787165B20D5D7BD009CB4E3 /* VCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCFactory.swift; sourceTree = "<group>"; };
 		A7A425111F7DE781005F9FF2 /* Stores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A425141F7DE781005F9FF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7A4251D1F7DE781005F9FF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,7 +173,7 @@
 		A7CE8E84209FD842002C35D6 /* EmptyStateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewController.swift; sourceTree = "<group>"; };
 		A7CE8E8820A14948002C35D6 /* MenuListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListPresenter.swift; sourceTree = "<group>"; };
 		A7CE8E8A20A27891002C35D6 /* NewsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListPresenter.swift; sourceTree = "<group>"; };
-		A7E4A1CA1FAD8DED00204F44 /* DataProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderFactory.swift; sourceTree = "<group>"; };
+		A7E4A1CA1FAD8DED00204F44 /* DPFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPFactory.swift; sourceTree = "<group>"; };
 		A7E4A1CD1FAE890000204F44 /* TableKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableKitExtension.swift; sourceTree = "<group>"; };
 		A7ED778E20803E0400AD6450 /* MockDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataBase.swift; sourceTree = "<group>"; };
 		A7F1E01620917DD300F9A120 /* NewsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListController.swift; sourceTree = "<group>"; };
@@ -357,7 +365,8 @@
 				A743BB4A1FAD2D5A009EAA1B /* DataProvider.swift */,
 				A7173FBA1F88B17700BA1F4F /* DataWriter.swift */,
 				A743BB4E1FAD7147009EAA1B /* RawData.swift */,
-				A7E4A1CA1FAD8DED00204F44 /* DataProviderFactory.swift */,
+				A7E4A1CA1FAD8DED00204F44 /* DPFactory.swift */,
+				A787165920D4BFF9009CB4E3 /* DPFunctionality.swift */,
 			);
 			path = DataProviders;
 			sourceTree = "<group>";
@@ -367,6 +376,8 @@
 			children = (
 				A743BB481FAD23AB009EAA1B /* FirestoreDB.swift */,
 				A743BB4C1FAD636E009EAA1B /* EntityPath.swift */,
+				A787165520D481C7009CB4E3 /* Filter.swift */,
+				A787165720D4B5FF009CB4E3 /* Order.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -382,6 +393,7 @@
 		A76188711F8842E600DCB65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A787165B20D5D7BD009CB4E3 /* VCFactory.swift */,
 				A7CE8E84209FD842002C35D6 /* EmptyStateViewController.swift */,
 				A76988B6204CB98C006668F2 /* Presenters */,
 				A7173FB51F886D5900BA1F4F /* ProductsListViewController.swift */,
@@ -802,6 +814,7 @@
 				A71BCB671F91C31600308ECE /* MenuCell.swift in Sources */,
 				5779595A20911DA9004277FE /* SWRevealViewController.m in Sources */,
 				A779A8C21F94551A001B2BA2 /* SizeCell.swift in Sources */,
+				A787165A20D4BFF9009CB4E3 /* DPFunctionality.swift in Sources */,
 				A74E0E8720918D8400F524DE /* ProductsController.swift in Sources */,
 				A7E4A1CE1FAE890000204F44 /* TableKitExtension.swift in Sources */,
 				577959522091170F004277FE /* RootController.swift in Sources */,
@@ -810,6 +823,7 @@
 				A7CE8E81209D4E71002C35D6 /* BrandListPresenter.swift in Sources */,
 				A755CDD3200AD187009664C1 /* Cell.swift in Sources */,
 				A74E0E7D20918CCA00F524DE /* BrandEntity.swift in Sources */,
+				A787165820D4B5FF009CB4E3 /* Order.swift in Sources */,
 				A7F1E01720917DD300F9A120 /* NewsListController.swift in Sources */,
 				A7173FB41F88560400BA1F4F /* NewsListViewController.swift in Sources */,
 				A72B664220902D3200338544 /* Storyboardable.swift in Sources */,
@@ -827,7 +841,7 @@
 				A7A8A17A20150D8400D84E6E /* TypesSizesEntity.swift in Sources */,
 				A7173FE31F8A08D400BA1F4F /* ProductCellView.swift in Sources */,
 				5779595720911B6A004277FE /* SWRevealViewControllerExtension.swift in Sources */,
-				A7E4A1CB1FAD8DED00204F44 /* DataProviderFactory.swift in Sources */,
+				A7E4A1CB1FAD8DED00204F44 /* DPFactory.swift in Sources */,
 				A74E0E8A20918D8400F524DE /* Sold.swift in Sources */,
 				A7173FB81F886D8300BA1F4F /* ProductDetailViewController.swift in Sources */,
 				A743BB491FAD23AB009EAA1B /* FirestoreDB.swift in Sources */,
@@ -840,12 +854,14 @@
 				A751371F2019621900DF2DBA /* ProductDetailsInfoCell.swift in Sources */,
 				A743BB4B1FAD2D5A009EAA1B /* DataProvider.swift in Sources */,
 				A74E0E9320957A8200F524DE /* MenuListInterfaces.swift in Sources */,
+				A787165620D481C7009CB4E3 /* Filter.swift in Sources */,
 				A74E0E982095834B00F524DE /* NewsListInterfaces.swift in Sources */,
 				A7CE8E85209FD842002C35D6 /* EmptyStateViewController.swift in Sources */,
 				A76988BD204CE61F006668F2 /* CreateSizesView.swift in Sources */,
 				A74A25E5204B7E3400A99D83 /* ProductDetailsSellCell.swift in Sources */,
 				A76988BF204CFD13006668F2 /* ProductDetailsSizesPresenter.swift in Sources */,
 				A7CE8E8B20A27891002C35D6 /* NewsListPresenter.swift in Sources */,
+				A787165C20D5D7BD009CB4E3 /* VCFactory.swift in Sources */,
 				A76188731F88430300DCB65A /* MenuListViewController.swift in Sources */,
 				A74A25E9204B803B00A99D83 /* ProductDetailsSoldCell.swift in Sources */,
 				A743BB4D1FAD636E009EAA1B /* EntityPath.swift in Sources */,

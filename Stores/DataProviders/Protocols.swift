@@ -10,16 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 protocol GetDataAPI {
-    func listen(completion: @escaping (RawData) -> Void)
-}
-
-protocol OrderingDataAPI {
-    func filter(field: String, isEqualTo: Any) -> Self
-    func filter(field: String, isLessThan: Any) -> Self
-    func filter(field: String, isLessThanOrEqualTo: Any) -> Self
-    func filter(field: String, isGreaterThan: Any) -> Self
-    func filter(field: String, isGreaterThanOrEqualTo: Any) -> Self
-    func order(by: String) -> Self
+    func listen(entityPath: EntityPath, filters: Filter?, order: Order?, completion: @escaping (RawData) -> ())
 }
 
 protocol PostDataAPI {

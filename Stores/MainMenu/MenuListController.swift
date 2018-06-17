@@ -10,47 +10,41 @@ import UIKit
 
 protocol MenuListControllerInitInterface {
     init()
-    init(presenter: MenuListPresenterInterface & MenuListPresenterSendDataInterface & MenuListPresenterResponseInterface,
-         dataProvider: DataProvider<StoreEntity>)
+    init(presenter: Presenter, dataProvider: GetDataAPI)
 }
 
-struct MenuListController: MenuListControllerInitInterface {
+struct MenuListController: MenuListControllerInitInterface, DPFunctionality {
     
-    typealias Presenter = MenuListPresenterInterface & MenuListPresenterSendDataInterface & MenuListPresenterResponseInterface
-    
-    private let presenter: Presenter
-    private let dataProvider: DataProvider<StoreEntity>
+    private let dataProvider: GetDataAPI
+    private let vcFactory: VCFactoryProtocol
+    private var emptyVC: EmptyStateViewController {
+        return vcFactory.getViewController()
+    }
+    private var mainVC: MenuListViewController {
+        return vcFactory.getViewController()
+    }
     
     //For dependecy injection
-    init(presenter: Presenter, dataProvider: DataProvider<StoreEntity>) {
-        self.presenter = presenter
+    init(dataProvider: GetDataAPI, vcFactory: VCFactoryProtocol) {
         self.dataProvider = dataProvider
-        
+        self.vcFactory = vcFactory
         self.start()
     }
     
     //By default
     init() {
-        self.init(presenter: MenuListPresenter(), dataProvider: DataProviderFactory<StoreEntity>.GetDataProvider.storesList())
+        self.init(dataProvider: DPFactory.dataProvider(), vcFactory: VCFactory())
     }
     
     private func start() {
-        
-        //setup presenter
-        self.presenter.setViewDidLoad { (view) in
-            print("HELLO")
-        }.setViewDidDisappear { (view) in
-            print("GOOD BY")
-        }.setViewDidSelectStore { (store) in
-            BrandsListController(store: store)
-        }
-        
-        self.dataProvider.newData { (stores) in //New data coming
-            self.presenter.newData(stores)
-        }.modifiedData { (stores) in //Data modified
-            self.presenter.modifiedData(stores)
-        }.removedData { (stores) in //Remove data
-            self.presenter.removedData(stores)
-        }.listen()
+        let storePath = EntityPath().Store()
+        listen(db: dataProvider, entityPath: storePath, filters: nil, order: nil,
+        newData: { (stores: [StoreEntity]) in
+            
+        }, modifiedData: { (stores: [StoreEntity]) in
+            
+        }, removedData: { (stores: [StoreEntity]) in
+
+        })
     }
 }

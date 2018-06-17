@@ -5,7 +5,7 @@
 //  Created by ssion on 11/3/17.
 //  Copyright © 2017 Prokuda. All rights reserved.
 //
-
+/*
 import Foundation
 
 struct DataProvider<EntityModelType: DocumentSerializableProtocol> {
@@ -168,3 +168,4 @@ extension DataProvider {
                                                   actionForRemovedData: self.actionForRemovedData)
     }
 }
+*/

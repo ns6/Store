@@ -59,13 +59,4 @@ extension EntityPath {
     func Product(value: String = "") -> EntityPath {
         return addPath(name: "Products", value: value)
     }
-    
-    func firestorePath() -> String {
-        var stringPath = ""
-        getPath { (name, value) in
-            //"Stores/\(store.id)/Brands/\(brand.id)/Products"
-            stringPath += "/" + name + "/" + value
-        }
-        return stringPath
-    }
 }

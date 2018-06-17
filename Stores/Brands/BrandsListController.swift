@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+/*
 protocol BrandsListControllerInitInterface {
     init(store: StoreEntity)
     init(presenter: BrandListPresenterInterface & BrandListPresenterSendDataInterface & BrandListPresenterResponseInterface,
@@ -83,3 +83,4 @@ struct BrandsListController: BrandsListControllerInitInterface {
         }.listen()
     }
 }
+*/
