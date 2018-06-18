@@ -26,15 +26,16 @@ class MenuListViewController: UITableViewController {
     private var tableDirector: TableDirector!
     private var sectionFirst: TableSection!
     private var sectionSecond: TableSection!
+    private var buffer: [StoreEntity] = []
+    private var isDidLoad: Bool = false
     
-    //MenuListViewInterface
-    var didLoadBlock: ((_ sender: MenuListViewInterface)->())?
-    var didDisappearBlock: ((MenuListViewInterface) -> ())?
-    var didSelectStoreBlock: ((StoreEntity) -> ())?
+    var didLoad: ((_ sender: MenuListViewControllerProtocol)->())?
+    var didDisappear: ((_ sender: MenuListViewControllerProtocol)->())?
+    var didSelectStore: ((_ brand: StoreEntity)->())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        didLoadBlock?(self)
+        self.isDidLoad = true
         
         //self.sectionFirst.headerTitle = "Меню";
         //self.sectionSecond.headerTitle = "Магазины"
@@ -56,6 +57,12 @@ class MenuListViewController: UITableViewController {
         self.tableDirector.insert(row: newsRow, atIndex: 0, inSection: 0, withUpdate: .top)
         self.tableDirector.insert(row: statisticsRow, atIndex: 1, inSection: 0, withUpdate: .top)
         //end
+        
+        if buffer.count > 0 {
+            newData(entity: buffer)
+        }
+        
+        didLoad?(self)
     }
     
 
@@ -70,7 +77,7 @@ class MenuListViewController: UITableViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        didDisappearBlock?(self)
+        didDisappear?(self)
     }
     
     // MARK: - Segues
@@ -90,13 +97,18 @@ class MenuListViewController: UITableViewController {
     */
 }
 
-extension MenuListViewController: MenuListViewInterface {
+extension MenuListViewController: MenuListViewControllerProtocol {
 
     func newData(entity: [StoreEntity]) {
+        guard self.isDidLoad else {
+            self.buffer.append(contentsOf: entity)
+            return
+        }
+        
         self.tableDirector.insert(cellType: MenuStoresCell.self, items: entity, inSection: 1, withUpdate: .top,
         configure: { (cell) in
             cell.on(.click) { (options) in
-                self.didSelectStoreBlock?(options.item)
+                self.didSelectStore?(options.item)
             }
             .on(.canEdit) { (options) -> Bool in
                 return false

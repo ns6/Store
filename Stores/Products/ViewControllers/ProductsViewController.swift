@@ -8,11 +8,101 @@
 
 import Foundation
 import UIKit
-import FirebaseFirestore
 import TableKit
 
+class ProductsViewController: UITableViewController {
+    
+    @IBOutlet weak var tableVW: UITableView! {
+        didSet {
+            tableDirector = TableDirector(tableView: tableVW)
+            section = TableSection.init()
+            tableDirector += section
+            
+        }
+    }
+    
+    private var tableDirector: TableDirector!
+    private var section: TableSection!
+    private var buffer: [ProductEntity] = []
+    private var isDidLoad: Bool = false
+    
+    var didLoad: ((_ sender: ProductsViewControllerProtocol)->())?
+    var didDisappear: ((_ sender: ProductsViewControllerProtocol)->())?
+    var didSelectBrand: ((_ brand: ProductEntity)->())?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.isDidLoad = true
+        if self.buffer.count > 0 {
+            newData(entity: buffer)
+            self.buffer = []
+        }
+        didLoad?(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if revealViewController() != nil {
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        didDisappear?(self)
+    }
+    
+    deinit {
+        print("DEINIT")
+    }
+}
+
+extension ProductsViewController: ProductsViewControllerProtocol {
+    
+    func newData(entity: [ProductEntity]) {
+        
+        guard self.isDidLoad else {
+            self.buffer.append(contentsOf: entity)
+            return
+        }
+        
+        let presenter = entity.map{ ProductsListPresenter(product: $0) }
+        
+        self.tableDirector.insert(cellType: ProductCellView.self,
+          items: presenter,
+          inSection: 0,
+          withUpdate: .top,
+          configure: { (cell) in
+            cell.on(.click) { (options) in
+                //return true
+                }
+                .on(.canEdit) { (options) -> Bool in
+                    return false
+            }
+        })
+    }
+    
+    func modifiedData(entity: [ProductEntity]) {
+        let presenter = entity.map{ ProductsListPresenter(product: $0) }
+        self.tableDirector.modify(cellType: ProductCellView.self, items: presenter, inSection: 0)
+    }
+    
+    func removedData(entity: [ProductEntity]) {
+        self.tableDirector.remove(items: entity, inSection: 0, withUpdate: .left)
+    }
+}
+
+/*
 class ProductsList: UITableViewController {
- /*
+
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
             tableDirector = TableDirector(tableView: tableVW)
@@ -72,5 +162,6 @@ class ProductsList: UITableViewController {
             controller.navigationItem.leftItemsSupplementBackButton = true
         }
     }
- */
+
 }
+*/

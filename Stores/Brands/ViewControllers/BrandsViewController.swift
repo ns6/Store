@@ -8,18 +8,9 @@
 
 import Foundation
 import UIKit
-import FirebaseFirestore
 import TableKit
 
-class BrandsListViewController: UITableViewController {
-    
-    private var tableDirector: TableDirector!
-    private var section: TableSection!
-
-    //BrandsListViewInterface
-    var didLoadBlock: ((_ sender: BrandsListViewInterface)->())?
-    var didDisappearBlock: ((BrandsListViewInterface) -> ())?
-    var didSelectBrandBlock: ((BrandEntity) -> ())?
+class BrandsViewController: UITableViewController {
     
     @IBOutlet weak var tableVW: UITableView! {
         didSet {
@@ -31,13 +22,26 @@ class BrandsListViewController: UITableViewController {
     }
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    private var tableDirector: TableDirector!
+    private var section: TableSection!
+    private var buffer: [BrandEntity] = []
+    private var isDidLoad: Bool = false
+    
+    var didLoad: ((_ sender: BrandsViewControllerProtocol)->())?
+    var didDisappear: ((_ sender: BrandsViewControllerProtocol)->())?
+    var didSelectBrand: ((_ brand: BrandEntity)->())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        didLoadBlock?(self)
+        self.isDidLoad = true
+        if buffer.count > 0 {
+            newData(entity: buffer)
+        }
+        didLoad?(self)
         
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: "top.png"), for: UIBarMetrics.default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -64,7 +68,11 @@ class BrandsListViewController: UITableViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        didDisappearBlock?(self)
+        didDisappear?(self)
+    }
+    
+    deinit {
+        print("DEINIT")
     }
 
     /*
@@ -120,12 +128,17 @@ class BrandsListViewController: UITableViewController {
     */
 }
 
-extension BrandsListViewController: BrandsListViewInterface {
+extension BrandsViewController: BrandsViewControllerProtocol {
 
     func newData(entity: [BrandEntity]) {
+        guard self.isDidLoad else {
+            self.buffer.append(contentsOf: entity)
+            return
+        }
+        
         self.tableDirector.insert(cellType: BrandCellView.self, items: entity, inSection: 0, withUpdate: .top, configure: { (cell) in
             cell.on(.click) { (options) in
-                self.didSelectBrandBlock?(options.item)
+                self.didSelectBrand?(options.item)
             }
             .on(.canEdit) { (options) -> Bool in
                     return true

@@ -8,6 +8,56 @@
 
 import Foundation
 
+protocol BrandsPresenterProtocol {
+    var empty: Storyboardable { get }
+    var normal: BrandsViewControllerProtocol { get }
+    
+    var didLoad: ((_ sender: BrandsViewControllerProtocol)->())? {get set}
+    var didDisappear: ((_ sender: BrandsViewControllerProtocol)->())? {get set}
+    var didSelectBrand: ((_ brand: BrandEntity)->())? {get set}
+}
+
+class BrandPresenter: BrandsPresenterProtocol {
+    private var actual: Any? = nil
+    
+    var empty: Storyboardable {
+        guard let current = actual as? EmptyStateViewController else {
+            let current = EmptyStateViewController.storyboardViewController()
+            actual = current
+            present(vc: current, animated: true)
+            return current
+        }
+        return current
+    }
+    
+    var normal: BrandsViewControllerProtocol {
+        guard let current = actual as? BrandsViewController else {
+            let current = BrandsViewController.storyboardViewController()
+            
+            //set callBack
+            current.didLoad = self.didLoad
+            current.didDisappear = self.didDisappear
+            current.didSelectBrand = self.didSelectBrand
+            
+            actual = current
+            present(vc: current, animated: true)
+            return current
+        }
+        return current
+    }
+    
+    var didLoad: ((_ sender: BrandsViewControllerProtocol)->())?
+    var didDisappear: ((_ sender: BrandsViewControllerProtocol)->())?
+    var didSelectBrand: ((_ brand: BrandEntity)->())?
+    
+    private func present(vc: UIViewController, animated: Bool = false) {
+        let navController = UINavigationController(rootViewController: vc)
+        RootController.shareInstance?.setFrontViewPosition(FrontViewPosition.left, animated: animated)
+        RootController.shareInstance?.setFront(navController, animated: animated)
+    }
+}
+
+/*
 protocol BrandListPresenterInterface {
     init()
     init(emptyState: EmptyStateViewControllerInterface, normalState: BrandsListViewInterface)
@@ -146,3 +196,4 @@ extension BrandListPresenter: BrandListPresenterResponseInterface {
         return self
     }
 }
+*/

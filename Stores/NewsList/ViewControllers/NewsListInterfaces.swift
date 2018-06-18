@@ -9,5 +9,4 @@
 import Foundation
 
 protocol NewsListViewInterface: Storyboardable {
-    var didLoadBlock: ((_ sender: NewsListViewInterface)->())? {get set}
 }

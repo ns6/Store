@@ -12,11 +12,9 @@ import UIKit
 class NewsListViewController: UIViewController, NewsListViewInterface {
     
     @IBOutlet weak var label: UILabel!
-    var didLoadBlock: ((NewsListViewInterface) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        didLoadBlock?(self)
         
         if revealViewController() != nil {
             //            revealViewController().rearViewRevealWidth = 62
@@ -33,6 +31,10 @@ class NewsListViewController: UIViewController, NewsListViewInterface {
                 print("\n\n\nSHOW\n\n\n")
             }
         }
+    }
+    
+    deinit {
+        print("DEINIT -> NewsListViewController")
     }
     
 }

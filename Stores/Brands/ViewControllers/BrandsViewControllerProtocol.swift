@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol BrandsListViewInterface: Storyboardable {
-    var didLoadBlock: ((_ sender: BrandsListViewInterface)->())? {get set}
-    var didDisappearBlock: ((_ sender: BrandsListViewInterface)->())? {get set}
-    var didSelectBrandBlock: ((_ brand: BrandEntity)->())? {get set}
-    
+protocol BrandsViewControllerProtocol: Storyboardable {
     func newData(entity: [BrandEntity])
     func modifiedData(entity: [BrandEntity])
     func removedData(entity: [BrandEntity])
+    
+    var didLoad: ((_ sender: BrandsViewControllerProtocol)->())? {get set}
+    var didDisappear: ((_ sender: BrandsViewControllerProtocol)->())? {get set}
+    var didSelectBrand: ((_ brand: BrandEntity)->())? {get set}
 }

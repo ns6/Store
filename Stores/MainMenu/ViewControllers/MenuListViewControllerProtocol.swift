@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol MenuListViewInterface: Storyboardable {
-    var didLoadBlock: ((_ sender: MenuListViewInterface)->())? {get set}
-    var didDisappearBlock: ((_ sender: MenuListViewInterface)->())? {get set}
-    var didSelectStoreBlock: ((_ brand: StoreEntity)->())? {get set}
-    
+protocol MenuListViewControllerProtocol: Storyboardable {
     func newData(entity: [StoreEntity])
     func modifiedData(entity: [StoreEntity])
     func removedData(entity: [StoreEntity])
+    
+    var didLoad: ((_ sender: MenuListViewControllerProtocol)->())? {get set}
+    var didDisappear: ((_ sender: MenuListViewControllerProtocol)->())? {get set}
+    var didSelectStore: ((_ brand: StoreEntity)->())? {get set}
 }
 

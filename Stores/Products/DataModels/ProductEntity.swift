@@ -10,19 +10,7 @@ import Foundation
 
 
 struct ProductEntity: DocumentIdentifiable {
-    
-//    weak var brand: Brand? {
-//        didSet {
-//            guard let sizesTypes = brand?.store?.sizes else {fatalError()}
-//            guard let sortedSizes = (sizesTypes.filter{$0.id == sizesType}.first?.sizes) else {fatalError()}
-//            self.sizes = self.sizes.sorted {
-//                let firstIndex = sortedSizes.index(of: $0.size)!
-//                let secondIndex = sortedSizes.index(of: $1.size)!
-//                return firstIndex < secondIndex
-//            }
-//        }
-//    }
-    
+        
     let itemName: String
     let sex: String
     let color: String

@@ -12,8 +12,6 @@ protocol EmptyStateViewControllerInterface: Storyboardable {
     
 }
 class EmptyStateViewController: UIViewController, EmptyStateViewControllerInterface {
-
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,12 +24,16 @@ class EmptyStateViewController: UIViewController, EmptyStateViewControllerInterf
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if revealViewController() != nil {
-            revealViewController().rearViewRevealWidth = 262
-            menuButton?.target = revealViewController()
-            menuButton?.action = #selector(SWRevealViewController.revealToggle(_:))
-            revealViewController().rightViewRevealWidth = 150
+//            revealViewController().rearViewRevealWidth = 262
+//            menuButton?.target = revealViewController()
+//            menuButton?.action = #selector(SWRevealViewController.revealToggle(_:))
+//            revealViewController().rightViewRevealWidth = 150
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+    }
+    
+    deinit {
+        print("DEINIT -> EmptyStateViewControllerInterface")
     }
 
 }

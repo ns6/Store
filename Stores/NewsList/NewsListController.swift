@@ -10,21 +10,26 @@ import UIKit
 
 protocol NewsListControllerInitInterface {
     init()
-    init(presenter: NewsListPresenterInterface & NewsListPresenterResponseInterface)
 }
 
 struct NewsListController: NewsListControllerInitInterface {
         
-    typealias Presenter = NewsListPresenterInterface & NewsListPresenterResponseInterface
-    private let presenter: Presenter
+    private let dataProvider: GetDataAPI
+    private let presenter: NewsListPresenterProtocol
     
     //For dependecy injection
-    init(presenter: Presenter) {
+    init(dataProvider: GetDataAPI, presenter: NewsListPresenterProtocol) {
+        self.dataProvider = dataProvider
         self.presenter = presenter
+        self.start()
     }
     
     //By default
     init() {
-        self.init(presenter: NewsListPresenter())
+        self.init(dataProvider: DPFactory.dataProvider(), presenter: NewsListPresenter())
+    }
+    
+    private func start() {
+        _ = self.presenter.normal
     }
 }

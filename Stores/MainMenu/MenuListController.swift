@@ -10,41 +10,42 @@ import UIKit
 
 protocol MenuListControllerInitInterface {
     init()
-    init(presenter: Presenter, dataProvider: GetDataAPI)
+    init(dataProvider: GetDataAPI, presenter: MenuListPresenterProtocol)
 }
 
 struct MenuListController: MenuListControllerInitInterface, DPFunctionality {
     
     private let dataProvider: GetDataAPI
-    private let vcFactory: VCFactoryProtocol
-    private var emptyVC: EmptyStateViewController {
-        return vcFactory.getViewController()
-    }
-    private var mainVC: MenuListViewController {
-        return vcFactory.getViewController()
-    }
+    private var presenter: MenuListPresenterProtocol
     
     //For dependecy injection
-    init(dataProvider: GetDataAPI, vcFactory: VCFactoryProtocol) {
+    init(dataProvider: GetDataAPI, presenter: MenuListPresenterProtocol) {
         self.dataProvider = dataProvider
-        self.vcFactory = vcFactory
+        self.presenter = presenter
+        
+        //set callBack
+        self.presenter.didSelectStore = { (store) in
+            _ = BrandsController(store: store)
+        }
+        
         self.start()
     }
     
     //By default
     init() {
-        self.init(dataProvider: DPFactory.dataProvider(), vcFactory: VCFactory())
+        self.init(dataProvider: DPFactory.dataProvider(), presenter: MenuListPresenter())
     }
     
     private func start() {
+        
         let storePath = EntityPath().Store()
         listen(db: dataProvider, entityPath: storePath, filters: nil, order: nil,
         newData: { (stores: [StoreEntity]) in
-            
+            self.presenter.normal.newData(entity: stores)
         }, modifiedData: { (stores: [StoreEntity]) in
-            
+            self.presenter.normal.modifiedData(entity: stores)
         }, removedData: { (stores: [StoreEntity]) in
-
+            self.presenter.normal.removedData(entity: stores)
         })
     }
 }

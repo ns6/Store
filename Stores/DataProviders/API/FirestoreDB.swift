@@ -12,12 +12,20 @@ import FirebaseFirestore
 
 struct FirestoreDB {
     
-    private func getCollectionRef(_ entityPath: String) -> Query {
+    private func getCollectionRef(_ entityPath: String) -> Query? {
         let count = entityPath.split(separator: "/").filter {$0.count>0}.count
         if count % 2 != 0 {
             return Firestore.firestore().collection(entityPath)
         }
-        fatalError("entityPath is wrong - \(entityPath)")
+        return nil
+    }
+    
+    private func getDocumentRef(_ entityPath: String) -> DocumentReference? {
+        let count = entityPath.split(separator: "/").filter {$0.count>0}.count
+        if count % 2 == 0 {
+            return Firestore.firestore().document(entityPath)
+        }
+        return nil
     }
     
     private func parseEntityPath(_ path: EntityPath) -> String {
@@ -87,6 +95,14 @@ extension FirestoreDB: GetDataAPI {
         
         let parsedEntityPath = parseEntityPath(entityPath)
         var collectionRef = getCollectionRef(parsedEntityPath)
+        var documentRef = getDocumentRef(parsedEntityPath)
+
+        collectionRef?.addSnapshotListener({ (<#QuerySnapshot?#>, <#Error?#>) in
+            <#code#>
+        })
+        documentRef?.addSnapshotListener({ (sn, er) in
+            sn
+        })
         
         if let filters = filters {
             collectionRef = setFilters(filters, to: collectionRef)
