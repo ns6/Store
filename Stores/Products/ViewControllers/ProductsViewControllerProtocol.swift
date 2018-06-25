@@ -15,5 +15,5 @@ protocol ProductsViewControllerProtocol: Storyboardable {
     
     var didLoad: ((_ sender: ProductsViewControllerProtocol)->())? {get set}
     var didDisappear: ((_ sender: ProductsViewControllerProtocol)->())? {get set}
-    var didSelectBrand: ((_ brand: ProductEntity)->())? {get set}
+    var didSelectProduct: ((_ product: ProductEntity)->())? {get set}
 }

@@ -84,35 +84,34 @@ struct FirestoreDB {
         }
         return newCollectionRef
     }
-}
-
-extension FirestoreDB: GetDataAPI {
     
-    func listen(entityPath: EntityPath,
-                filters: Filter? = nil,
-                order: Order? = nil,
-                completion: @escaping (RawData) -> ()) {
+    private func listenDocument(ref: DocumentReference, completion: @escaping ([String : Any]) -> ()) {
+        ref.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching snapshot results: \(error!)")
+                return
+            }
+            var data: [String:Any] = snapshot.data()!
+            data["id"] = snapshot.documentID
+            data["indexRow"] = UInt(0)
+            completion(data)
+        }
+    }
         
-        let parsedEntityPath = parseEntityPath(entityPath)
-        var collectionRef = getCollectionRef(parsedEntityPath)
-        var documentRef = getDocumentRef(parsedEntityPath)
-
-        collectionRef?.addSnapshotListener({ (<#QuerySnapshot?#>, <#Error?#>) in
-            <#code#>
-        })
-        documentRef?.addSnapshotListener({ (sn, er) in
-            sn
-        })
-        
+    private func listenCollection(query: Query,
+                        filters: Filter? = nil,
+                        order: Order? = nil,
+                        completion: @escaping (RawData) -> ()) {
+        var ref = query
         if let filters = filters {
-            collectionRef = setFilters(filters, to: collectionRef)
+            ref = setFilters(filters, to: ref)
         }
         
         if let order = order {
-            collectionRef = setOrder(order: order, to: collectionRef)
+            ref = setOrder(order: order, to: ref)
         }
         
-        collectionRef.addSnapshotListener { querySnapshot, error in
+        ref.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 print("Error fetching snapshot results: \(error!)")
                 return
@@ -133,8 +132,26 @@ extension FirestoreDB: GetDataAPI {
                 case .removed: tempDictionary["indexRow"] = doc.oldIndex; removed.append(tempDictionary)
                 }
             }
-            
             completion(RawData.init(new: new, modified: modified, removed: removed))
+        }
+    }
+}
+
+extension FirestoreDB: GetDataAPI {
+    
+    func listen(entityPath: EntityPath,
+                filters: Filter? = nil,
+                order: Order? = nil,
+                completion: @escaping (RawData) -> ()) {
+        
+        let parsedEntityPath = parseEntityPath(entityPath)
+        if let collectionRef = getCollectionRef(parsedEntityPath) {
+            listenCollection(query: collectionRef, filters: filters, order: order, completion: completion)
+        } else if let documentRef = getDocumentRef(parsedEntityPath) {
+            listenDocument(ref: documentRef) { (data) in
+                let rawData = RawData(new: [data], modified: [], removed: [])
+                completion(rawData)
+            }
         }
     }
 }

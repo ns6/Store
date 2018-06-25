@@ -32,7 +32,10 @@ extension DPFunctionality {
         db.listen(entityPath: entityPath, filters: filters, order: order) { (rawData) in
             if let newData = newData, rawData.new.count > 0 {
                 let models: [EntityModelType] = rawData.new.map {
-                    guard let model = EntityModelType.init(dictionary: $0) else { fatalError($0.description) }
+                    guard let model = EntityModelType.init(dictionary: $0) else {
+                        fatalError($0.description)
+                        
+                    }
                     return model
                 }
                 newData(models)

@@ -28,8 +28,8 @@ struct ProductsController: ProductsControllerProtocol, DPFunctionality {
         self.brand = brand
         
         //set callBack
-        self.presenter.didSelectBrand = { (product) in
-            print(product)
+        self.presenter.didSelectProduct = { (product) in
+            _ = ProductDetailsController(store: store, brand: brand, product: product)
         }
         
         self.start()

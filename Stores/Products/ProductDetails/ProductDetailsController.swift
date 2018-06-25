@@ -27,6 +27,7 @@ struct ProductDetailsController: ProductDetailsControllerProtocol, DPFunctionali
         self.presenter = presenter
         self.store = store
         self.brand = brand
+        self.product = product
         
         //set callBack
         self.presenter.didSelectBrand = { (product) in
@@ -38,7 +39,7 @@ struct ProductDetailsController: ProductDetailsControllerProtocol, DPFunctionali
     
     //By default
     init(store: StoreEntity, brand: BrandEntity, product: ProductEntity) {
-        self.init(dataProvider: DPFactory.dataProvider(), presenter: ProductDetailsPresenter(), store: store, brand: brand)
+        self.init(dataProvider: DPFactory.dataProvider(), presenter: ProductDetailsPresenter(), store: store, brand: brand, product: product)
     }
     
     private func start() {
@@ -46,7 +47,7 @@ struct ProductDetailsController: ProductDetailsControllerProtocol, DPFunctionali
         
         let pathToTypesSizes = EntityPath().Store(value: store.id).SizesTypes()
         listen(db: dataProvider, entityPath: pathToTypesSizes, filters: nil, order: nil,
-               newData: { (entity: [TypesSizesEntity]) in
+        newData: { (entity: [TypesSizesEntity]) in
                 
         }, modifiedData: { (entity: [TypesSizesEntity]) in
             
@@ -54,14 +55,10 @@ struct ProductDetailsController: ProductDetailsControllerProtocol, DPFunctionali
             
         })
         
-        let path = EntityPath().Store(value: store.id).Brand(value: brand.id).Product()
+        let path = EntityPath().Store(value: store.id).Brand(value: brand.id).Product(value: product.id)
         listen(db: dataProvider, entityPath: path, filters: nil, order: nil,
-               newData: { (entity: [ProductEntity]) in
-                self.presenter.normal.newData(entity: entity)
-        }, modifiedData: { (entity: [ProductEntity]) in
-            self.presenter.normal.modifiedData(entity: entity)
-        }, removedData: { (entity: [ProductEntity]) in
-            self.presenter.normal.removedData(entity: entity)
+        newData: { (entity: [ProductEntity]) in
+            self.presenter.normal.newData(entity: entity.first!)
         })
     }
 }

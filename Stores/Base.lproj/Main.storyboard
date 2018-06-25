@@ -658,7 +658,7 @@
         <!--ProductDetail-->
         <scene sceneID="ZTn-J3-3Md">
             <objects>
-                <tableViewController id="ZCN-c8-0Bu" userLabel="ProductDetail" customClass="ProductDetail" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProductDetailsViewController" id="ZCN-c8-0Bu" userLabel="ProductDetail" customClass="ProductDetailsViewController" customModule="Stores" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="-1" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="28" sectionFooterHeight="28" estimatedSectionFooterHeight="28" id="FgK-nW-PO6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

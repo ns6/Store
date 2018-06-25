@@ -1,23 +1,23 @@
 //
-//  ProductPresenter.swift
+//  ProductDetailsPresenter.swift
 //  Stores
 //
-//  Created by ssion on 6/17/18.
+//  Created by ssion on 6/19/18.
 //  Copyright © 2018 Prokuda. All rights reserved.
 //
 
 import Foundation
 
-protocol ProductsPresenterProtocol {
+protocol ProductDetailsPresenterProtocol {
     var empty: Storyboardable { get }
-    var normal: ProductsViewControllerProtocol { get }
+    var normal: ProductDetailsViewControllerProtocol { get }
     
-    var didLoad: ((_ sender: ProductsViewControllerProtocol)->())? {get set}
-    var didDisappear: ((_ sender: ProductsViewControllerProtocol)->())? {get set}
-    var didSelectProduct: ((_ product: ProductEntity)->())? {get set}
+    var didLoad: ((_ sender: ProductDetailsViewControllerProtocol)->())? {get set}
+    var didDisappear: ((_ sender: ProductDetailsViewControllerProtocol)->())? {get set}
+    var didSelectBrand: ((_ product: ProductEntity)->())? {get set}
 }
 
-class ProductsPresenter: ProductsPresenterProtocol {
+class ProductDetailsPresenter: ProductDetailsPresenterProtocol {
     private var actual: Any? = nil
     
     var empty: Storyboardable {
@@ -30,14 +30,14 @@ class ProductsPresenter: ProductsPresenterProtocol {
         return current
     }
     
-    var normal: ProductsViewControllerProtocol {
-        guard let current = actual as? ProductsViewController else {
-            let current = ProductsViewController.storyboardViewController()
+    var normal: ProductDetailsViewControllerProtocol {
+        guard let current = actual as? ProductDetailsViewController else {
+            let current = ProductDetailsViewController.storyboardViewController()
             
             //set callBack
             current.didLoad = self.didLoad
             current.didDisappear = self.didDisappear
-            current.didSelectProduct = self.didSelectProduct
+            current.didSelectBrand = self.didSelectBrand
             
             present(vc: current, animated: true)
             actual = current
@@ -46,9 +46,9 @@ class ProductsPresenter: ProductsPresenterProtocol {
         return current
     }
     
-    var didLoad: ((_ sender: ProductsViewControllerProtocol)->())?
-    var didDisappear: ((_ sender: ProductsViewControllerProtocol)->())?
-    var didSelectProduct: ((_ product: ProductEntity)->())?
+    var didLoad: ((_ sender: ProductDetailsViewControllerProtocol)->())?
+    var didDisappear: ((_ sender: ProductDetailsViewControllerProtocol)->())?
+    var didSelectBrand: ((_ product: ProductEntity)->())?
     
     private func present(vc: UIViewController, animated: Bool = false) {
         guard let rootController = RootController.shareInstance else { fatalError() }

@@ -28,7 +28,7 @@ class ProductsViewController: UITableViewController {
     
     var didLoad: ((_ sender: ProductsViewControllerProtocol)->())?
     var didDisappear: ((_ sender: ProductsViewControllerProtocol)->())?
-    var didSelectBrand: ((_ brand: ProductEntity)->())?
+    var didSelectProduct: ((_ product: ProductEntity)->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,16 +76,16 @@ extension ProductsViewController: ProductsViewControllerProtocol {
         
         let presenter = entity.map{ ProductsListPresenter(product: $0) }
         
-        self.tableDirector.insert(cellType: ProductCellView.self,
+        self.tableDirector?.insert(cellType: ProductCellView.self,
           items: presenter,
           inSection: 0,
           withUpdate: .top,
           configure: { (cell) in
             cell.on(.click) { (options) in
-                //return true
-                }
-                .on(.canEdit) { (options) -> Bool in
-                    return false
+                self.didSelectProduct?(options.item.product)
+            }
+            .on(.canEdit) { (options) -> Bool in
+                return false
             }
         })
     }
