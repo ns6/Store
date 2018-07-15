@@ -25,7 +25,7 @@ class Cell<CellType: ConfigurableCell>: TableRow<CellType>, RowContainer where C
         super.configure(cell)
     }
     
-    open func configure(with item: CellType.T) {
+    open func configure(with item: CellType.CellData) {
         guard let cell = self.sourceCell else { fatalError() }
         cell.configure(with: item)
     }

@@ -32,11 +32,11 @@ extension TableDirector {
     }
     
     func insert<CellType>(cellType: CellType.Type,
-                                            items: [CellType.T],
+                                            items: [CellType.CellData],
                                             inSection section: Int,
                                             withUpdate animation: UITableViewRowAnimation,
                                             configure: (Cell<CellType>)->())
-                                            where CellType.T: DocumentIdentifiable {
+                                            where CellType.CellData: DocumentIdentifiable {
         items.forEach { (item) in
             let cell = Cell<CellType>(item: item)
             configure(cell)
@@ -91,13 +91,13 @@ extension TableDirector {
         return self
     }
     
-    func modify<CellType: ConfigurableCell>(cellType: CellType.Type, items: [CellType.T], inSection section: Int)
-        where CellType: UITableViewCell, CellType.T: DocumentIdentifiable {
+    func modify<CellType: ConfigurableCell>(cellType: CellType.Type, items: [CellType.CellData], inSection section: Int)
+        where CellType: UITableViewCell, CellType.CellData: DocumentIdentifiable {
             sections[section].modify(cellType: cellType, items: items)
     }
     
-    func item<CellType: ConfigurableCell>(forCellType: CellType.Type, inSection section: Int, rowIndex row: Int) -> CellType.T?
-        where CellType: UITableViewCell, CellType.T: DocumentIdentifiable {
+    func item<CellType: ConfigurableCell>(forCellType: CellType.Type, inSection section: Int, rowIndex row: Int) -> CellType.CellData?
+        where CellType: UITableViewCell, CellType.CellData: DocumentIdentifiable {
         let cell = sections[section].rows[row] as? Cell<CellType>
         return cell?.item
     }
@@ -169,11 +169,11 @@ extension TableSection {
         self.remove(rowAt: Int(item.indexRow))
     }
     
-    func modify<CellType: ConfigurableCell>(cellType: CellType.Type, item: CellType.T) where CellType: UITableViewCell, CellType.T: DocumentIdentifiable {
+    func modify<CellType: ConfigurableCell>(cellType: CellType.Type, item: CellType.CellData) where CellType: UITableViewCell, CellType.CellData: DocumentIdentifiable {
         modify(cellType: cellType, items: [item])
     }
     
-    func modify<CellType: ConfigurableCell>(cellType: CellType.Type, items: [CellType.T]) where CellType: UITableViewCell, CellType.T: DocumentIdentifiable {
+    func modify<CellType: ConfigurableCell>(cellType: CellType.Type, items: [CellType.CellData]) where CellType: UITableViewCell, CellType.CellData: DocumentIdentifiable {
         items.forEach { (item) in
             let cell = rows[Int(item.indexRow)] as! Cell<CellType>
             cell.configure(with: item)

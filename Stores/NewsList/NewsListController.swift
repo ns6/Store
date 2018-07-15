@@ -8,17 +8,13 @@
 
 import UIKit
 
-protocol NewsListControllerInitInterface {
-    init()
-}
-
-struct NewsListController: NewsListControllerInitInterface {
+struct NewsListController {
         
     private let dataProvider: GetDataAPI
-    private let presenter: NewsListPresenterProtocol
+    private let presenter: Presenter
     
     //For dependecy injection
-    init(dataProvider: GetDataAPI, presenter: NewsListPresenterProtocol) {
+    init(dataProvider: GetDataAPI, presenter: Presenter) {
         self.dataProvider = dataProvider
         self.presenter = presenter
         self.start()
@@ -26,10 +22,14 @@ struct NewsListController: NewsListControllerInitInterface {
     
     //By default
     init() {
-        self.init(dataProvider: DPFactory.dataProvider(), presenter: NewsListPresenter())
+        let presenter = Presenter(segueType: .push, shouldCreateNavigationController: true)
+        presenter.add(viewController: NewsListViewController.self) { (vc) in
+            //to do
+        }
+        self.init(dataProvider: DPFactory.dataProvider(), presenter: presenter)
     }
     
     private func start() {
-        _ = self.presenter.normal
+        let vc: NewsListViewController = self.presenter.present()
     }
 }

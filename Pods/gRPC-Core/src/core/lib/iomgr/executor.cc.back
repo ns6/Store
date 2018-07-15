@@ -69,7 +69,7 @@ static size_t run_closures(grpc_closure_list list) {
       gpr_log(GPR_DEBUG, "EXECUTOR: run %p [created by %s:%d]", c,
               c->file_created, c->line_created);
 #else
-      gpr_log(GPR_DEBUG, "EXECUTOR: run %p", c);
+      gpr_log(GPR_INFO, "EXECUTOR: run %p", c);
 #endif
     }
 #ifndef NDEBUG
@@ -145,12 +145,12 @@ static void executor_thread(void* arg) {
   thread_state* ts = static_cast<thread_state*>(arg);
   gpr_tls_set(&g_this_thread_state, (intptr_t)ts);
 
-  grpc_core::ExecCtx exec_ctx(0);
+  grpc_core::ExecCtx exec_ctx(GRPC_EXEC_CTX_FLAG_IS_INTERNAL_THREAD);
 
   size_t subtract_depth = 0;
   for (;;) {
     if (executor_trace.enabled()) {
-      gpr_log(GPR_DEBUG, "EXECUTOR[%d]: step (sub_depth=%" PRIdPTR ")",
+      gpr_log(GPR_INFO, "EXECUTOR[%d]: step (sub_depth=%" PRIdPTR ")",
               static_cast<int>(ts - g_thread_state), subtract_depth);
     }
     gpr_mu_lock(&ts->mu);
@@ -161,7 +161,7 @@ static void executor_thread(void* arg) {
     }
     if (ts->shutdown) {
       if (executor_trace.enabled()) {
-        gpr_log(GPR_DEBUG, "EXECUTOR[%d]: shutdown",
+        gpr_log(GPR_INFO, "EXECUTOR[%d]: shutdown",
                 static_cast<int>(ts - g_thread_state));
       }
       gpr_mu_unlock(&ts->mu);
@@ -172,7 +172,7 @@ static void executor_thread(void* arg) {
     ts->elems = GRPC_CLOSURE_LIST_INIT;
     gpr_mu_unlock(&ts->mu);
     if (executor_trace.enabled()) {
-      gpr_log(GPR_DEBUG, "EXECUTOR[%d]: execute",
+      gpr_log(GPR_INFO, "EXECUTOR[%d]: execute",
               static_cast<int>(ts - g_thread_state));
     }
 
@@ -199,7 +199,7 @@ static void executor_push(grpc_closure* closure, grpc_error* error,
         gpr_log(GPR_DEBUG, "EXECUTOR: schedule %p (created %s:%d) inline",
                 closure, closure->file_created, closure->line_created);
 #else
-        gpr_log(GPR_DEBUG, "EXECUTOR: schedule %p inline", closure);
+        gpr_log(GPR_INFO, "EXECUTOR: schedule %p inline", closure);
 #endif
       }
       grpc_closure_list_append(grpc_core::ExecCtx::Get()->closure_list(),
@@ -225,7 +225,7 @@ static void executor_push(grpc_closure* closure, grpc_error* error,
             closure, is_short ? "short" : "long", closure->file_created,
             closure->line_created, static_cast<int>(ts - g_thread_state));
 #else
-        gpr_log(GPR_DEBUG, "EXECUTOR: try to schedule %p (%s) to thread %d",
+        gpr_log(GPR_INFO, "EXECUTOR: try to schedule %p (%s) to thread %d",
                 closure, is_short ? "short" : "long",
                 (int)(ts - g_thread_state));
 #endif

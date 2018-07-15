@@ -9,8 +9,26 @@
 import Foundation
 import UIKit
 
-class NewsListViewController: UIViewController, NewsListViewInterface {
+class NewsListViewController: UIViewController, ViewControllerProtocol {
     
+    var didLoad: ((UIViewController) -> ())?
+    
+    var didDisappear: ((UIViewController) -> ())?
+    
+    var didSelectEntity: ((Any) -> ())?
+    
+    func newData(entity: [Any]) {
+        
+    }
+    
+    func modifiedData(entity: [Any]) {
+        
+    }
+    
+    func removedData(entity: [Any]) {
+        
+    }
+        
     @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {

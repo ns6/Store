@@ -27,9 +27,9 @@ class BrandsViewController: UITableViewController {
     private var buffer: [BrandEntity] = []
     private var isDidLoad: Bool = false
     
-    var didLoad: ((_ sender: BrandsViewControllerProtocol)->())?
-    var didDisappear: ((_ sender: BrandsViewControllerProtocol)->())?
-    var didSelectBrand: ((_ brand: BrandEntity)->())?
+    var didLoad: ((UIViewController) -> ())?
+    var didDisappear: ((UIViewController) -> ())?
+    var didSelectEntity: ((BrandEntity) -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -128,7 +128,7 @@ class BrandsViewController: UITableViewController {
     */
 }
 
-extension BrandsViewController: BrandsViewControllerProtocol {
+extension BrandsViewController: ViewControllerProtocol {
 
     func newData(entity: [BrandEntity]) {
         guard self.isDidLoad else {
@@ -138,7 +138,7 @@ extension BrandsViewController: BrandsViewControllerProtocol {
         
         self.tableDirector.insert(cellType: BrandCellView.self, items: entity, inSection: 0, withUpdate: .top, configure: { (cell) in
             cell.on(.click) { (options) in
-                self.didSelectBrand?(options.item)
+                self.didSelectEntity?(options.item)
             }
             .on(.canEdit) { (options) -> Bool in
                     return true

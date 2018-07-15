@@ -20,7 +20,7 @@
 
 #include "src/core/lib/iomgr/port.h"
 
-#ifdef GRPC_POSIX_SOCKET
+#ifdef GRPC_POSIX_SOCKET_UTILS_COMMON
 
 #include "src/core/lib/iomgr/socket_utils.h"
 #include "src/core/lib/iomgr/socket_utils_posix.h"
@@ -179,6 +179,30 @@ grpc_error* grpc_set_socket_reuse_port(int fd, int reuse) {
 
   return GRPC_ERROR_NONE;
 #endif
+}
+
+static gpr_once g_probe_so_reuesport_once = GPR_ONCE_INIT;
+static int g_support_so_reuseport = false;
+
+void probe_so_reuseport_once(void) {
+#ifndef GPR_MANYLINUX1
+  int s = socket(AF_INET, SOCK_STREAM, 0);
+  if (s < 0) {
+    /* This might be an ipv6-only environment in which case 'socket(AF_INET,..)'
+       call would fail. Try creating IPv6 socket in that case */
+    s = socket(AF_INET6, SOCK_STREAM, 0);
+  }
+  if (s >= 0) {
+    g_support_so_reuseport = GRPC_LOG_IF_ERROR(
+        "check for SO_REUSEPORT", grpc_set_socket_reuse_port(s, 1));
+    close(s);
+  }
+#endif
+}
+
+bool grpc_is_socket_reuse_port_supported() {
+  gpr_once_init(&g_probe_so_reuesport_once, probe_so_reuseport_once);
+  return g_support_so_reuseport;
 }
 
 /* disable nagle */

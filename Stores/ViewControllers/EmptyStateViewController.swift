@@ -8,10 +8,19 @@
 
 import UIKit
 
-protocol EmptyStateViewControllerInterface: Storyboardable {
+
+class EmptyStateViewController: UIViewController, ViewControllerProtocol {
+    func newData(entity: [BrandEntity]) {
+        
+    }
     
-}
-class EmptyStateViewController: UIViewController, EmptyStateViewControllerInterface {
+    func modifiedData(entity: [BrandEntity]) {
+        
+    }
+    
+    func removedData(entity: [BrandEntity]) {
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
